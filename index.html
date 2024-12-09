@@ -146,7 +146,6 @@
                 ],
                 soundEffect: "path/to/sound3.mp3",
             },
-            // Additional placeholder scenes to extend to 20 total
             {
                 id: "4",
                 background: "path/to/your/image4.jpg",
@@ -188,6 +187,86 @@
                 soundEffect: "path/to/sound7.mp3",
             },
             {
+                id: "8",
+                background: "path/to/your/image8.jpg",
+                text: "The shadows coalesce into a monstrous form. You draw your weapon.",
+                choices: [
+                    { text: "Fight", nextScene: "12" },
+                    { text: "Run", nextScene: "5" }
+                ],
+                soundEffect: "path/to/sound8.mp3",
+            },
+            {
+                id: "9",
+                background: "path/to/your/image9.jpg",
+                text: "The landscape changes as you wander deeper into the ruins.",
+                choices: [
+                    { text: "Continue forward", nextScene: "13" },
+                    { text: "Head back", nextScene: "2" }
+                ],
+                soundEffect: "path/to/sound9.mp3",
+            },
+            {
+                id: "10",
+                background: "path/to/your/image10.jpg",
+                text: "The courtyard is eerily quiet. You feel something ancient watching.",
+                choices: [
+                    { text: "Investigate", nextScene: "14" },
+                    { text: "Leave", nextScene: "6" }
+                ],
+                soundEffect: "path/to/sound10.mp3",
+            },
+            {
+                id: "11",
+                background: "path/to/your/image11.jpg",
+                text: "The passageway leads to a dark chamber with strange carvings.",
+                choices: [
+                    { text: "Examine the carvings", nextScene: "15" },
+                    { text: "Return to the surface", nextScene: "7" }
+                ],
+                soundEffect: "path/to/sound11.mp3",
+            },
+            {
+                id: "12",
+                background: "path/to/your/image12.jpg",
+                text: "The battle is fierce. You manage to defeat the shadowy form.",
+                choices: [
+                    { text: "Search the remains", nextScene: "9" },
+                    { text: "Move deeper into the ruins", nextScene: "13" }
+                ],
+                soundEffect: "path/to/sound12.mp3",
+            },
+            {
+                id: "13",
+                background: "path/to/your/image13.jpg",
+                text: "You find yourself at the edge of a vast chasm.",
+                choices: [
+                    { text: "Attempt to cross", nextScene: "14" },
+                    { text: "Turn back", nextScene: "10" }
+                ],
+                soundEffect: "path/to/sound13.mp3",
+            },
+            {
+                id: "14",
+                background: "path/to/your/image14.jpg",
+                text: "A strange light beckons you from across the chasm.",
+                choices: [
+                    { text: "Follow the light", nextScene: "endWin" },
+                    { text: "Ignore it and move forward", nextScene: "9" }
+                ],
+                soundEffect: "path/to/sound14.mp3",
+            },
+            {
+                id: "15",
+                background: "path/to/your/image15.jpg",
+                text: "The carvings glow as you approach, revealing an ancient truth.",
+                choices: [
+                    { text: "Embrace the truth", nextScene: "1" },
+                    { text: "Turn away", nextScene: "2" }
+                ],
+                soundEffect: "path/to/sound15.mp3",
+            },
+            {
                 id: "endWin",
                 background: "path/to/your/victory.jpg",
                 text: "You have reached the end of your journey. The truth is now yours to wield.",
@@ -205,7 +284,6 @@
                 ],
                 soundEffect: "path/to/fail.mp3",
             },
-            // Placeholder for up to 20 scenes, with additional inventory, sound, and effects setup
         ];
 
         const ambientMusic = document.getElementById("ambientMusic");
@@ -226,29 +304,4 @@
                 <div class="scene">
                     <div class="parallax" style="background-image: url('${scene.background}');"></div>
                     <div class="story">
-                        <p>${scene.text}</p>
-                        <div class="choices">
-                            ${scene.choices
-                                .map(choice => `
-                                <button class="choice" onclick="changeScene('${choice.nextScene}')">
-                                    ${choice.text}
-                                </button>`).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            if (scene.soundEffect) {
-                soundEffect.src = scene.soundEffect;
-                soundEffect.play();
-            }
-        };
-
-        const changeScene = (sceneId) => {
-            renderScene(sceneId);
-        };
-
-        renderScene("1");
-    </script>
-</body>
-</html>
+                        <p>${scene.text
