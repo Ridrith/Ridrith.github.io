@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ayotha - Explore the dark and intricate world of Ayotha, a realm shrouded in mystery and danger. Discover its history, lore, and ongoing tales through our interactive wiki and website.">
-    <meta name="keywords" content="Ayotha, dark fantasy, lore, worldbuilding, RPG, fantasy wiki">
-    <meta name="author" content="Your Name">
-    <title>Ayotha - The Dark Fantasy Realm</title>
+    <meta name="description" content="Gallowshall - An OSR RPG e-zine by Ohr Games, featuring content for Torches in the Dark 3rd Edition.">
+    <meta name="keywords" content="Gallowshall, OSR RPG, Torches in the Dark, e-zine, RPG content">
+    <meta name="author" content="Ohr Games">
+    <title>Gallowshall - OSR RPG E-Zine</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -14,19 +14,19 @@
         body {
             margin: 0;
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to bottom, #0f0f0f, #1e1e1e);
-            color: #dcdcdc;
+            background: linear-gradient(to bottom, #1a1a1a, #121212);
+            color: #f0f0f0;
         }
 
         header {
-            background: #0f0f0f;
-            color: #a70000;
+            background: #1a1a1a;
+            color: #e63946;
             padding: 1rem 2rem;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
         }
 
         header h1 {
@@ -42,13 +42,13 @@
 
         nav a {
             margin: 0 15px;
-            color: #dcdcdc;
+            color: #f0f0f0;
             text-decoration: none;
             font-weight: 700;
         }
 
         nav a:hover {
-            color: #a70000;
+            color: #e63946;
         }
 
         .container {
@@ -58,7 +58,7 @@
         }
 
         .hero {
-            background: url('hero-image.jpg') center/cover no-repeat;
+            background: url('gallowshall-hero.jpg') center/cover no-repeat;
             height: 60vh;
             display: flex;
             align-items: center;
@@ -80,69 +80,50 @@
         }
 
         .card {
-            background: #1e1e1e;
+            background: #2a2a2a;
             padding: 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
             text-align: center;
         }
 
         .card h3 {
-            color: #a70000;
+            color: #e63946;
         }
 
         .card p {
-            color: #a39453;
+            color: #f4a261;
         }
 
         .card a {
             display: inline-block;
             margin-top: 1rem;
             padding: 0.5rem 1rem;
-            color: #dcdcdc;
-            background: #a70000;
+            color: #f0f0f0;
+            background: #e63946;
             text-decoration: none;
             border-radius: 4px;
         }
 
         .card a:hover {
-            background: #a39453;
+            background: #f4a261;
         }
 
         footer {
             text-align: center;
             padding: 1rem;
-            background: #0f0f0f;
-            color: #a39453;
+            background: #1a1a1a;
+            color: #f4a261;
             margin-top: 2rem;
         }
 
         footer a {
-            color: #dcdcdc;
+            color: #f0f0f0;
             text-decoration: none;
         }
 
         footer a:hover {
-            color: #a70000;
-        }
-
-        .scroll-indicator {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.2rem;
-            color: #a39453;
-            animation: bounce 1.5s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translate(-50%, 0);
-            }
-            50% {
-                transform: translate(-50%, -10px);
-            }
+            color: #e63946;
         }
 
         .animated-bg {
@@ -151,7 +132,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(167, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+            background: radial-gradient(circle at center, rgba(230, 57, 70, 0.5), rgba(0, 0, 0, 0.8));
             pointer-events: none;
             animation: pulse 3s infinite;
         }
@@ -164,109 +145,63 @@
                 opacity: 0.8;
             }
         }
-
-        .popup {
-            position: fixed;
-            bottom: 50px;
-            right: 50px;
-            background: #1e1e1e;
-            color: #dcdcdc;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-            display: none;
-        }
-
-        .popup.show {
-            display: block;
-        }
-
-        .popup button {
-            background: #a70000;
-            color: #dcdcdc;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .popup button:hover {
-            background: #a39453;
-        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Ayotha</h1>
+        <h1>Gallowshall</h1>
         <nav>
             <a href="#about">About</a>
-            <a href="#lore">Lore</a>
-            <a href="#history">History</a>
-            <a href="#wiki">Wiki</a>
+            <a href="#articles">Articles</a>
+            <a href="#adventures">Adventures</a>
+            <a href="#rules">Rules</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h2>Welcome to the Shadows of Ayotha</h2>
+        <h2>Welcome to Gallowshall</h2>
+        <p>Your gateway to OSR RPG content and adventures for Torches in the Dark 3rd Edition.</p>
         <div class="animated-bg"></div>
     </section>
 
     <main class="container">
         <section id="about">
-            <h2>About Ayotha</h2>
-            <p>Ayotha is a world shrouded in mystery, illuminated by its own dark history. Discover tales of forgotten gods, powerful artifacts, and the perpetual struggle of light and shadow.</p>
+            <h2>About Gallowshall</h2>
+            <p>Gallowshall is an e-zine created by Ohr Games, dedicated to the OSR community and providing resources for Torches in the Dark 3rd Edition. From new adventures to expanded rules and creative content, our mission is to inspire and empower RPG enthusiasts.</p>
         </section>
 
-        <section id="lore" class="grid">
+        <section id="articles" class="grid">
             <div class="card">
-                <h3>The Gods of Ayotha</h3>
-                <p>Learn about the pantheon of Ayotha, including Menos the God Binder and the Throne God.</p>
-                <a href="#">Discover More</a>
+                <h3>Feature Articles</h3>
+                <p>Delve into in-depth discussions, insights, and OSR RPG philosophies.</p>
+                <a href="#">Read Articles</a>
             </div>
             <div class="card">
-                <h3>Dark Relics</h3>
-                <p>Unravel the grim relics scattered across Ayotha, each holding immense power and dire consequences.</p>
-                <a href="#">Explore Relics</a>
+                <h3>Exclusive Adventures</h3>
+                <p>Embark on new quests and challenges crafted for Torches in the Dark 3rd Edition.</p>
+                <a href="#">Explore Adventures</a>
             </div>
             <div class="card">
-                <h3>Kingdoms and Cultures</h3>
-                <p>Dive into the ancient Celtic and Mongol-inspired regions to the east, full of rich history and deadly intrigue.</p>
-                <a href="#">Read More</a>
+                <h3>Expanded Rules</h3>
+                <p>Enhance your game with optional mechanics and creative ideas.</p>
+                <a href="#">View Rules</a>
             </div>
         </section>
 
-        <section id="history">
-            <h2>History of Ayotha</h2>
-            <p>Trace the timeline from the Age of Origination to the Age of Death, exploring the events that shaped this mysterious world.</p>
+        <section id="adventures">
+            <h2>Featured Adventures</h2>
+            <p>Discover ready-to-play scenarios and adventures tailored for Torches in the Dark 3rd Edition, complete with maps and story hooks.</p>
         </section>
 
-        <section id="wiki">
-            <h2>Interactive Wiki</h2>
-            <p>Use our interactive wiki to browse through Ayotha's detailed entries, including characters, locations, events, and artifacts.</p>
+        <section id="rules">
+            <h2>Expanded Rules</h2>
+            <p>Find new rules, classes, and systems to enrich your OSR RPG campaigns.</p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Ayotha. Designed with dark fantasy in mind. <a href="#">Privacy Policy</a></p>
+        <p>&copy; 2024 Gallowshall. Powered by Ohr Games. <a href="#">Privacy Policy</a></p>
     </footer>
-
-    <div class="popup" id="subscribePopup">
-        <p>Join the Ayotha Chronicles for exclusive updates!</p>
-        <button onclick="closePopup()">Close</button>
-    </div>
-
-    <div class="scroll-indicator">Scroll to Explore More</div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const popup = document.getElementById('subscribePopup');
-            setTimeout(() => popup.classList.add('show'), 3000);
-        });
-
-        function closePopup() {
-            document.getElementById('subscribePopup').classList.remove('show');
-        }
-    </script>
 </body>
 </html>
