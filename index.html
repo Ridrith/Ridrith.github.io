@@ -29,6 +29,31 @@
             z-index: 1000;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             transition: all 0.5s ease;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(212,175,55,0.4), rgba(0,0,0,0));
+            opacity: 0.5;
+            animation: pulse 5s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
         }
 
         header h1 {
@@ -67,6 +92,24 @@
             color: #f8f5f0;
             box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.9);
             animation: fadeInHero 1.5s ease forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.8));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         @keyframes fadeInHero {
@@ -197,7 +240,7 @@
     </header>
 
     <div class="hero">
-        <div>
+        <div class="hero-content">
             <h2>Enter the World of Dark Fantasy</h2>
             <p>Discover the rules, lore, and mechanics of the ultimate tabletop adventure.</p>
         </div>
