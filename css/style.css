@@ -1,0 +1,80 @@
+:root {
+    --primary-color: #a70000;
+    --secondary-color: #0f0f0f;
+    --accent-color: #a39453;
+    --background-color: #1e1e1e;
+    --text-color: #ffffff;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  #gameContainer {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
+  .character {
+    position: absolute;
+    z-index: 2;
+    width: 150px;
+    transition: transform 0.5s;
+  }
+  
+  .npc {
+    position: absolute;
+    z-index: 2;
+    width: 120px;
+    transition: transform 0.5s;
+  }
+  
+  #textArea {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--text-color);
+    padding: 1rem;
+    font-size: 1.2rem;
+    z-index: 3;
+  }
+  
+  .hud {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 4;
+    background: var(--secondary-color);
+    padding: 10px;
+    border: 2px solid var(--accent-color);
+    border-radius: 5px;
+  }
+  
+  .hud button {
+    padding: 5px 10px;
+    margin: 5px;
+    background: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .hud button:hover {
+    background: #800000;
+  }
+  
