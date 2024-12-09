@@ -8,53 +8,73 @@
         body {
             margin: 0;
             font-family: "Merriweather", serif;
-            background-color: #0a0a0a;
-            color: #d4af37;
+            background-color: #121212;
+            color: #b3a78e;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         header {
-            background: linear-gradient(90deg, #2d2d2d, #1a1a1a);
-            color: #d4af37;
+            background: linear-gradient(to bottom, #1f1f1f, #121212);
+            color: #b3a78e;
             text-align: center;
-            padding: 2rem 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            padding: 3rem 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://via.placeholder.com/1920x400') center/cover no-repeat;
+            opacity: 0.2;
+            z-index: -1;
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin: 0;
         }
 
         header p {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             margin-top: 0.5rem;
         }
 
         nav {
             position: sticky;
             top: 0;
-            background: #111;
+            background: #1a1a1a;
             display: flex;
             justify-content: center;
             padding: 1rem;
             z-index: 10;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
         }
 
         nav a {
-            color: #d4af37;
+            color: #b3a78e;
             text-decoration: none;
             margin: 0 1rem;
             font-size: 1.1rem;
             position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e0c38a;
         }
 
         nav a::after {
             content: "";
             display: block;
             height: 2px;
-            background: #d4af37;
+            background: #e0c38a;
             width: 0;
             transition: width 0.3s;
             margin-top: 5px;
@@ -64,68 +84,77 @@
             width: 100%;
         }
 
+        .parallax {
+            background: url('https://via.placeholder.com/1920x600') center/cover no-repeat;
+            height: 400px;
+            position: relative;
+            z-index: 1;
+            background-attachment: fixed;
+        }
+
         .main-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin: 2rem auto;
+            margin: 3rem auto;
             max-width: 1200px;
             padding: 0 1rem;
         }
 
         .content-section {
-            background: #1a1a1a;
+            background: #1e1e1e;
             padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .content-section:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.9);
         }
 
         .content-section h2 {
-            font-size: 2rem;
-            border-bottom: 3px solid #d4af37;
+            font-size: 2.2rem;
+            border-bottom: 3px solid #b3a78e;
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
-            color: #f4f4f4;
+            color: #e0c38a;
         }
 
         .content-section p {
-            font-size: 1rem;
-            color: #ccc;
+            font-size: 1.1rem;
+            color: #b3a78e;
         }
 
         footer {
             text-align: center;
             padding: 2rem 0;
-            background: #0d0d0d;
-            color: #d4af37;
-            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.6);
+            background: #1a1a1a;
+            color: #b3a78e;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.7);
         }
 
         footer a {
-            color: #d4af37;
+            color: #e0c38a;
             text-decoration: underline;
         }
 
         .dark-button {
             display: inline-block;
             padding: 0.75rem 1.5rem;
-            background: #d4af37;
-            color: #0a0a0a;
+            background: #e0c38a;
+            color: #1a1a1a;
             text-decoration: none;
             margin-top: 1.5rem;
             border-radius: 5px;
             font-weight: bold;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s;
         }
 
         .dark-button:hover {
-            background: #b39431;
+            background: #b3a78e;
+            transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
@@ -141,10 +170,24 @@
                 margin: 0.5rem;
             }
         }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 2s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
+    <header class="fade-in">
         <h1>Gallowshall</h1>
         <p>The Dark Fantasy E-Zine of Ohr Games</p>
     </header>
@@ -155,6 +198,8 @@
         <a href="#ttrpg">Torches in the Dark</a>
         <a href="#contact">Contact</a>
     </nav>
+
+    <div class="parallax"></div>
 
     <div class="main-content">
         <section id="about" class="content-section">
