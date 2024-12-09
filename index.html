@@ -23,29 +23,33 @@
 
         header {
             background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
-            padding: 2rem;
+            padding: 1rem;
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
         }
 
         header h1 {
             font-family: 'Roboto Mono', monospace;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #d4af37;
+            transition: transform 0.5s ease;
+            transform-origin: left;
         }
 
         nav {
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
+            justify-content: flex-end;
         }
 
         nav a {
             text-decoration: none;
             color: #a39453;
-            font-size: 1.2rem;
+            font-size: 1rem;
             transition: color 0.3s ease;
         }
 
@@ -62,18 +66,52 @@
             text-align: center;
             color: #f8f5f0;
             box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.9);
+            animation: fadeInHero 1.5s ease forwards;
+        }
+
+        @keyframes fadeInHero {
+            from {
+                opacity: 0;
+                transform: scale(1.1);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .hero h2 {
             font-size: 3.5rem;
             text-shadow: 2px 2px 5px #000;
             margin-bottom: 1rem;
+            animation: slideDown 1s ease forwards;
         }
 
         .hero p {
             font-size: 1.5rem;
             max-width: 60%;
             margin: auto;
+            animation: fadeInText 1.5s ease 0.5s forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         section {
@@ -99,11 +137,12 @@
             padding: 1.5rem;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.05);
+            background: #282828;
         }
 
         .card h3 {
