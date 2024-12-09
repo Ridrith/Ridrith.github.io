@@ -3,81 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text-Based Adventure Game</title>
-  <style>
-    :root {
-      --primary-color: #a70000;
-      --secondary-color: #0f0f0f;
-      --accent-color: #a39453;
-      --background-color: #1e1e1e;
-      --text-color: #ffffff;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: var(--background-color);
-      color: var(--text-color);
-    }
-
-    #gameContainer {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .background {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-    }
-
-    .character {
-      position: absolute;
-      z-index: 2;
-      width: 150px;
-      transition: transform 0.5s;
-    }
-
-    #textArea {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      color: var(--text-color);
-      padding: 1rem;
-      font-size: 1.2rem;
-      z-index: 3;
-    }
-
-    .hud {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 4;
-      background: var(--secondary-color);
-      padding: 10px;
-      border: 2px solid var(--accent-color);
-      border-radius: 5px;
-    }
-
-    .hud button {
-      padding: 5px 10px;
-      margin: 5px;
-      background: var(--primary-color);
-      color: var(--text-color);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .hud button:hover {
-      background: #800000;
-    }
-  </style>
+  <title>Advanced Text-Based Adventure Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="game.js" defer></script>
 </head>
 <body>
   <div id="gameContainer">
@@ -90,73 +18,8 @@
       <button onclick="move('up')">Move Up</button>
       <button onclick="move('down')">Move Down</button>
       <button onclick="attack()">Attack</button>
+      <button onclick="interact()">Interact</button>
     </div>
   </div>
-
-  <script>
-    const textArea = document.getElementById('textArea');
-    const character = document.getElementById('character');
-    const background = document.getElementById('background');
-
-    let areas = [
-      "background1.jpg",
-      "background2.jpg",
-      "background3.jpg",
-      "background4.jpg",
-    ];
-
-    let currentArea = 0;
-    let player = { x: 50, y: 50, health: 100, attackPower: 10 };
-    let enemy = { x: 70, y: 70, health: 50 };
-
-    function move(direction) {
-      const step = 10;
-      let newX = player.x;
-      let newY = player.y;
-
-      if (direction === "left") newX -= step;
-      if (direction === "right") newX += step;
-      if (direction === "up") newY -= step;
-      if (direction === "down") newY += step;
-
-      if (newX >= 0 && newX <= 100) player.x = newX;
-      if (newY >= 0 && newY <= 100) player.y = newY;
-
-      updateCharacterPosition();
-      checkAreaTransition();
-    }
-
-    function updateCharacterPosition() {
-      character.style.transform = `translate(-50%, -50%) translate(${player.x}vw, ${player.y}vh)`;
-    }
-
-    function checkAreaTransition() {
-      if (player.x > 90 && currentArea < areas.length - 1) {
-        currentArea++;
-        background.src = areas[currentArea];
-        player.x = 10;
-        updateCharacterPosition();
-        updateText(`You moved to a new area!`);
-      }
-    }
-
-    function attack() {
-      if (enemy.health > 0) {
-        enemy.health -= player.attackPower;
-        updateText(`You attacked the enemy. Enemy health: ${enemy.health}`);
-        if (enemy.health <= 0) {
-          updateText("Enemy defeated!");
-        }
-      } else {
-        updateText("No enemies here.");
-      }
-    }
-
-    function updateText(message) {
-      textArea.innerHTML = message;
-    }
-
-    updateText("Welcome to the game! Explore the areas and defeat enemies.");
-  </script>
 </body>
 </html>
