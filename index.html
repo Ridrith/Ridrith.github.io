@@ -3,162 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TTRPG Rulebook Search</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+    <meta name="description" content="Interactive Lorebook for TTRPG">
+    <title>Interactive Lorebook</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f4f4f4;
             margin: 0;
             padding: 0;
-            background-color: #1e1e1e;
-            color: #f0f0f0;
         }
-
         .container {
-            max-width: 800px;
-            margin: 50px auto;
+            max-width: 900px;
+            margin: 0 auto;
             padding: 20px;
-            background-color: #2c2c2c;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
-
         h1 {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 20px;
+            color: #a39453;
         }
-
-        .search-box {
+        .search-bar {
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
         }
-
-        .search-box input {
-            width: 100%;
+        .search-bar input {
+            width: 80%;
             padding: 10px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 4px;
-            outline: none;
-            margin-right: 10px;
+            font-size: 16px;
+            border: 1px solid #a39453;
+            border-radius: 5px;
+            background-color: #2b2b2b;
+            color: #f4f4f4;
         }
-
-        .search-box button {
-            padding: 10px 15px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 4px;
-            background-color: #a70000;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .search-box button:hover {
-            background-color: #d02020;
-        }
-
-        .results {
-            margin-top: 20px;
-        }
-
-        .result-item {
-            background-color: #3c3c3c;
+        .entry {
+            margin-bottom: 20px;
+            border: 1px solid #a39453;
+            border-radius: 5px;
+            background-color: #1e1e1e;
             padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 10px;
+            transition: transform 0.2s;
         }
-
-        .result-item h2 {
-            font-size: 1.5rem;
-            margin: 0 0 10px;
+        .entry:hover {
+            transform: scale(1.02);
         }
-
-        .result-item p {
-            margin: 0;
+        .entry-title {
+            font-size: 1.5em;
+            color: #a70000;
+        }
+        .entry-content {
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>TTRPG Rulebook Search</h1>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search rules, spells, or items...">
-            <button onclick="searchRules()">Search</button>
+        <h1>Interactive Lorebook</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search lore...">
         </div>
-        <div class="results" id="results"></div>
+        <div id="loreEntries">
+            <!-- Entries will be dynamically loaded -->
+        </div>
     </div>
 
     <script>
-        const rules = [
-            {
-                id: "1",
-                title: "Combat Mechanics",
-                content: "Combat involves rolling a D20 and adding your attack modifiers. Compare the result to the enemy's Defense Score."
-            },
-            {
-                id: "2",
-                title: "Spellcasting",
-                content: "To cast a spell, use your Mana pool and roll against the spell's difficulty."
-            },
-            {
-                id: "3",
-                title: "Item: Healing Potion",
-                content: "A Healing Potion restores 10 HP when consumed. It can be used as a bonus action."
-            },
-            {
-                id: "4",
-                title: "Character Creation",
-                content: "Allocate points to your attributes: Strength, Dexterity, Intelligence, and Charisma."
-            },
-            {
-                id: "5",
-                title: "Stealth Checks",
-                content: "To perform a stealth check, roll a D20 and add your Stealth modifier. Compare against the enemy's Perception."
+        const searchInput = document.getElementById('searchInput');
+        const loreContainer = document.getElementById('loreEntries');
+
+        // Function to load data from Notion public page
+        async function fetchLoreFromNotion() {
+            try {
+                const response = await fetch('https://ohrgames.notion.site/727a3636538a4584808b9e5632a8d3e2?v=8e3f8d259f1742a0b43ad4cdaf3294c3&pvs=4');
+                if (!response.ok) throw new Error('Failed to fetch Notion data');
+                
+                // This example assumes a static structure; refine based on actual Notion data format.
+                // Parse Notion data and populate entries dynamically.
+
+                const mockEntries = [
+                    {
+                        title: "The Fall of Elarion",
+                        content: "Elarion, once the shining jewel of the eastern kingdoms, fell to ruin during the Age of Dread. Its ruins now lie haunted by the ghosts of its people, whispering their lament to those who dare enter."
+                    },
+                    {
+                        title: "The Red Blade",
+                        content: "An infamous weapon said to have been forged in the blood of a dying star. It grants immense power to its wielder but slowly consumes their soul."
+                    },
+                    {
+                        title: "The Council of Seven",
+                        content: "A shadowy group of powerful mages who once ruled from behind the thrones of kings. Their whereabouts are now unknown, but their influence lingers in every corner of the realm."
+                    }
+                ];
+
+                mockEntries.forEach(entry => {
+                    const entryDiv = document.createElement('div');
+                    entryDiv.classList.add('entry');
+                    entryDiv.innerHTML = `
+                        <div class="entry-title">${entry.title}</div>
+                        <div class="entry-content">${entry.content}</div>
+                    `;
+                    loreContainer.appendChild(entryDiv);
+                });
+            } catch (error) {
+                console.error('Error loading Notion data:', error);
             }
-        ];
+        }
 
-        // Initialize Lunr.js
-        const idx = lunr(function () {
-            this.field('title');
-            this.field('content');
-            this.ref('id');
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            const entries = document.querySelectorAll('.entry');
 
-            rules.forEach(rule => {
-                this.add(rule);
+            entries.forEach(entry => {
+                const title = entry.querySelector('.entry-title').textContent.toLowerCase();
+                const content = entry.querySelector('.entry-content').textContent.toLowerCase();
+
+                if (title.includes(query) || content.includes(query)) {
+                    entry.classList.remove('hidden');
+                } else {
+                    entry.classList.add('hidden');
+                }
             });
         });
 
-        function searchRules() {
-            const input = document.getElementById('searchInput').value;
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '';
-
-            const results = idx.search(input);
-
-            if (results.length > 0) {
-                results.forEach(result => {
-                    const rule = rules.find(r => r.id === result.ref);
-
-                    const ruleDiv = document.createElement('div');
-                    ruleDiv.classList.add('result-item');
-
-                    const title = document.createElement('h2');
-                    title.textContent = rule.title;
-
-                    const content = document.createElement('p');
-                    content.textContent = rule.content;
-
-                    ruleDiv.appendChild(title);
-                    ruleDiv.appendChild(content);
-                    resultsDiv.appendChild(ruleDiv);
-                });
-            } else {
-                resultsDiv.innerHTML = '<p>No results found.</p>';
-            }
-        }
+        fetchLoreFromNotion();
     </script>
 </body>
 </html>
