@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced HTML5 RPG Game</title>
+  <title>Text-Based Adventure Game</title>
   <style>
     :root {
       --primary-color: #a70000;
@@ -20,134 +20,143 @@
       color: var(--text-color);
     }
 
-    #gameCanvas {
-      display: block;
-      margin: 0 auto;
-      background: var(--secondary-color);
-      border: 4px solid var(--accent-color);
+    #gameContainer {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .character {
+      position: absolute;
+      z-index: 2;
+      width: 150px;
+      transition: transform 0.5s;
+    }
+
+    #textArea {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: var(--text-color);
+      padding: 1rem;
+      font-size: 1.2rem;
+      z-index: 3;
     }
 
     .hud {
-      text-align: center;
-      padding: 1rem;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 4;
       background: var(--secondary-color);
-      color: var(--text-color);
-      border-top: 4px solid var(--accent-color);
+      padding: 10px;
+      border: 2px solid var(--accent-color);
+      border-radius: 5px;
     }
 
-    .hud .btn {
-      padding: 0.5rem 1rem;
-      margin: 0.5rem;
-      background-color: var(--primary-color);
+    .hud button {
+      padding: 5px 10px;
+      margin: 5px;
+      background: var(--primary-color);
       color: var(--text-color);
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.3s;
     }
 
-    .hud .btn:hover {
-      background-color: #800000;
+    .hud button:hover {
+      background: #800000;
     }
   </style>
 </head>
 <body>
-  <canvas id="gameCanvas" width="800" height="600"></canvas>
-  <div class="hud">
-    <button class="btn" onclick="attackEnemy()">Attack</button>
-    <button class="btn" onclick="healPlayer()">Heal</button>
-    <button class="btn" onclick="movePlayer('left')">Move Left</button>
-    <button class="btn" onclick="movePlayer('right')">Move Right</button>
-    <button class="btn" onclick="movePlayer('up')">Move Up</button>
-    <button class="btn" onclick="movePlayer('down')">Move Down</button>
-    <p id="gameInfo"></p>
+  <div id="gameContainer">
+    <img src="background1.jpg" id="background" class="background">
+    <img src="character.png" id="character" class="character" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+    <div id="textArea"></div>
+    <div class="hud">
+      <button onclick="move('left')">Move Left</button>
+      <button onclick="move('right')">Move Right</button>
+      <button onclick="move('up')">Move Up</button>
+      <button onclick="move('down')">Move Down</button>
+      <button onclick="attack()">Attack</button>
+    </div>
   </div>
 
   <script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
+    const textArea = document.getElementById('textArea');
+    const character = document.getElementById('character');
+    const background = document.getElementById('background');
 
-    const SPRITE_SIZE = 40;
-    const MOVEMENT_SPEED = 10;
+    let areas = [
+      "background1.jpg",
+      "background2.jpg",
+      "background3.jpg",
+      "background4.jpg",
+    ];
 
-    let player = {
-      x: 50,
-      y: 300,
-      width: SPRITE_SIZE,
-      height: SPRITE_SIZE,
-      color: '#a70000',
-      health: 100,
-    };
+    let currentArea = 0;
+    let player = { x: 50, y: 50, health: 100, attackPower: 10 };
+    let enemy = { x: 70, y: 70, health: 50 };
 
-    let enemy = {
-      x: 700,
-      y: 300,
-      width: SPRITE_SIZE,
-      height: SPRITE_SIZE,
-      color: '#ffffff',
-      health: 100,
-    };
+    function move(direction) {
+      const step = 10;
+      let newX = player.x;
+      let newY = player.y;
 
-    function drawSprite(obj, spritePath = null) {
-      if (spritePath) {
-        const img = new Image();
-        img.src = spritePath;
-        img.onload = () => ctx.drawImage(img, obj.x, obj.y, obj.width, obj.height);
+      if (direction === "left") newX -= step;
+      if (direction === "right") newX += step;
+      if (direction === "up") newY -= step;
+      if (direction === "down") newY += step;
+
+      if (newX >= 0 && newX <= 100) player.x = newX;
+      if (newY >= 0 && newY <= 100) player.y = newY;
+
+      updateCharacterPosition();
+      checkAreaTransition();
+    }
+
+    function updateCharacterPosition() {
+      character.style.transform = `translate(-50%, -50%) translate(${player.x}vw, ${player.y}vh)`;
+    }
+
+    function checkAreaTransition() {
+      if (player.x > 90 && currentArea < areas.length - 1) {
+        currentArea++;
+        background.src = areas[currentArea];
+        player.x = 10;
+        updateCharacterPosition();
+        updateText(`You moved to a new area!`);
+      }
+    }
+
+    function attack() {
+      if (enemy.health > 0) {
+        enemy.health -= player.attackPower;
+        updateText(`You attacked the enemy. Enemy health: ${enemy.health}`);
+        if (enemy.health <= 0) {
+          updateText("Enemy defeated!");
+        }
       } else {
-        ctx.fillStyle = obj.color;
-        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+        updateText("No enemies here.");
       }
     }
 
-    function drawGame() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawSprite(player, 'player-sprite.png'); // Replace with player sprite image path
-      drawSprite(enemy, 'enemy-sprite.png'); // Replace with enemy sprite image path
-      drawHUD();
+    function updateText(message) {
+      textArea.innerHTML = message;
     }
 
-    function drawHUD() {
-      const gameInfo = document.getElementById('gameInfo');
-      gameInfo.innerHTML = `Player Health: ${player.health} | Enemy Health: ${enemy.health}`;
-    }
-
-    function movePlayer(direction) {
-      if (direction === 'left' && player.x > 0) player.x -= MOVEMENT_SPEED;
-      if (direction === 'right' && player.x + player.width < canvas.width) player.x += MOVEMENT_SPEED;
-      if (direction === 'up' && player.y > 0) player.y -= MOVEMENT_SPEED;
-      if (direction === 'down' && player.y + player.height < canvas.height) player.y += MOVEMENT_SPEED;
-      drawGame();
-    }
-
-    function attackEnemy() {
-      const damage = Math.floor(Math.random() * 20) + 1;
-      enemy.health -= damage;
-      if (enemy.health <= 0) {
-        alert('You defeated the enemy!');
-        resetGame();
-      }
-      drawGame();
-    }
-
-    function healPlayer() {
-      const heal = Math.floor(Math.random() * 15) + 1;
-      player.health += heal;
-      if (player.health > 100) player.health = 100;
-      drawGame();
-    }
-
-    function resetGame() {
-      player.health = 100;
-      enemy.health = 100;
-      player.x = 50;
-      player.y = 300;
-      enemy.x = 700;
-      enemy.y = 300;
-      drawGame();
-    }
-
-    drawGame();
+    updateText("Welcome to the game! Explore the areas and defeat enemies.");
   </script>
 </body>
 </html>
