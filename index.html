@@ -3,309 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Digital Rulebook - A Dark Fantasy Themed Website">
-    <title>Dark Fantasy Digital Rulebook</title>
-    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>TTRPG Rulebook Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
     <style>
-        * {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background-color: #1e1e1e;
+            color: #f0f0f0;
         }
 
-        body {
-            font-family: 'Spectral', serif;
-            background: #0f0f0f;
-            color: #a39453;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s ease;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(212,175,55,0.4), rgba(0,0,0,0));
-            opacity: 0.5;
-            animation: pulse 5s infinite;
-            z-index: -1;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-        }
-
-        header h1 {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 2rem;
-            color: #d4af37;
-            transition: transform 0.5s ease;
-            transform-origin: left;
-        }
-
-        nav {
-            margin-top: 0.5rem;
-            display: flex;
-            gap: 1.5rem;
-            justify-content: flex-end;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #a39453;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #d4af37;
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: url('https://source.unsplash.com/1920x1080/?dark,fantasy') center/cover no-repeat;
-            text-align: center;
-            color: #f8f5f0;
-            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.9);
-            animation: fadeInHero 1.5s ease forwards;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.8));
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        @keyframes fadeInHero {
-            from {
-                opacity: 0;
-                transform: scale(1.1);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .hero h2 {
-            font-size: 3.5rem;
-            text-shadow: 2px 2px 5px #000;
-            margin-bottom: 1rem;
-            animation: slideDown 1s ease forwards;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            max-width: 60%;
-            margin: auto;
-            animation: fadeInText 1.5s ease 0.5s forwards;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInText {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        section {
-            padding: 4rem 2rem;
-            animation: fadeIn 1s ease;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.2rem;
-            color: #d4af37;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: #1a1a1a;
-            padding: 1.5rem;
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #2c2c2c;
             border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
-            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .card:hover {
-            transform: translateY(-10px) scale(1.05);
-            background: #282828;
-        }
-
-        .card h3 {
-            color: #d4af37;
-            margin-bottom: 1rem;
-        }
-
-        .card p {
-            font-size: 1rem;
-            color: #a39453;
-        }
-
-        footer {
-            background: #0f0f0f;
+        h1 {
             text-align: center;
-            padding: 2rem;
-            color: #a39453;
-            font-size: 0.9rem;
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
 
-        footer a {
-            color: #d4af37;
-            text-decoration: none;
-            transition: color 0.3s ease;
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
         }
 
-        footer a:hover {
-            color: #a39453;
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+            margin-right: 10px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .search-box button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            background-color: #a70000;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background-color: #d02020;
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background-color: #3c3c3c;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .result-item h2 {
+            font-size: 1.5rem;
+            margin: 0 0 10px;
+        }
+
+        .result-item p {
+            margin: 0;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Digital Rulebook</h1>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#rules">Rules</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-
-    <div class="hero">
-        <div class="hero-content">
-            <h2>Enter the World of Dark Fantasy</h2>
-            <p>Discover the rules, lore, and mechanics of the ultimate tabletop adventure.</p>
+    <div class="container">
+        <h1>TTRPG Rulebook Search</h1>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search rules, spells, or items...">
+            <button onclick="searchRules()">Search</button>
         </div>
+        <div class="results" id="results"></div>
     </div>
 
-    <section id="about">
-        <h2 class="section-title">About</h2>
-        <div class="content-grid">
-            <div class="card">
-                <h3>Immersive Lore</h3>
-                <p>Dive into a world of dark fantasy, where every choice shapes your destiny.</p>
-            </div>
-            <div class="card">
-                <h3>Streamlined Mechanics</h3>
-                <p>Experience a game system designed for simplicity and strategy.</p>
-            </div>
-            <div class="card">
-                <h3>Collaborative Gameplay</h3>
-                <p>Forge alliances and overcome challenges with your companions.</p>
-            </div>
-        </div>
-    </section>
+    <script>
+        const rules = [
+            {
+                id: "1",
+                title: "Combat Mechanics",
+                content: "Combat involves rolling a D20 and adding your attack modifiers. Compare the result to the enemy's Defense Score."
+            },
+            {
+                id: "2",
+                title: "Spellcasting",
+                content: "To cast a spell, use your Mana pool and roll against the spell's difficulty."
+            },
+            {
+                id: "3",
+                title: "Item: Healing Potion",
+                content: "A Healing Potion restores 10 HP when consumed. It can be used as a bonus action."
+            },
+            {
+                id: "4",
+                title: "Character Creation",
+                content: "Allocate points to your attributes: Strength, Dexterity, Intelligence, and Charisma."
+            },
+            {
+                id: "5",
+                title: "Stealth Checks",
+                content: "To perform a stealth check, roll a D20 and add your Stealth modifier. Compare against the enemy's Perception."
+            }
+        ];
 
-    <section id="rules">
-        <h2 class="section-title">Rules</h2>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
-            Explore the rules that govern this world. Simplified for clarity, yet rich with depth.
-        </p>
-        <div class="content-grid">
-            <div class="card">
-                <h3>Combat System</h3>
-                <p>Fast-paced, action-driven mechanics with endless possibilities.</p>
-            </div>
-            <div class="card">
-                <h3>Character Progression</h3>
-                <p>Level up through achievements and epic tales.</p>
-            </div>
-            <div class="card">
-                <h3>Dynamic Challenges</h3>
-                <p>Face enemies, solve puzzles, and uncover secrets in a living world.</p>
-            </div>
-        </div>
-    </section>
+        // Initialize Lunr.js
+        const idx = lunr(function () {
+            this.field('title');
+            this.field('content');
+            this.ref('id');
 
-    <section id="faq">
-        <h2 class="section-title">FAQ</h2>
-        <div class="content-grid">
-            <div class="card">
-                <h3>Getting Started</h3>
-                <p>How to begin your journey in the world of dark fantasy.</p>
-            </div>
-            <div class="card">
-                <h3>Game Components</h3>
-                <p>Learn what you need to play, from dice to character sheets.</p>
-            </div>
-            <div class="card">
-                <h3>Player Resources</h3>
-                <p>Access guides, templates, and resources to enhance gameplay.</p>
-            </div>
-        </div>
-    </section>
+            rules.forEach(rule => {
+                this.add(rule);
+            });
+        });
 
-    <footer>
-        <p>&copy; 2024 Digital Rulebook | Designed with passion for dark fantasy enthusiasts.</p>
-        <p><a href="#">Back to Top</a></p>
-    </footer>
+        function searchRules() {
+            const input = document.getElementById('searchInput').value;
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            const results = idx.search(input);
+
+            if (results.length > 0) {
+                results.forEach(result => {
+                    const rule = rules.find(r => r.id === result.ref);
+
+                    const ruleDiv = document.createElement('div');
+                    ruleDiv.classList.add('result-item');
+
+                    const title = document.createElement('h2');
+                    title.textContent = rule.title;
+
+                    const content = document.createElement('p');
+                    content.textContent = rule.content;
+
+                    ruleDiv.appendChild(title);
+                    ruleDiv.appendChild(content);
+                    resultsDiv.appendChild(ruleDiv);
+                });
+            } else {
+                resultsDiv.innerHTML = '<p>No results found.</p>';
+            }
+        }
+    </script>
 </body>
 </html>
