@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML5 RPG Game</title>
+  <title>Advanced HTML5 RPG Game</title>
   <style>
     :root {
       --primary-color: #a70000;
@@ -57,6 +57,10 @@
   <div class="hud">
     <button class="btn" onclick="attackEnemy()">Attack</button>
     <button class="btn" onclick="healPlayer()">Heal</button>
+    <button class="btn" onclick="movePlayer('left')">Move Left</button>
+    <button class="btn" onclick="movePlayer('right')">Move Right</button>
+    <button class="btn" onclick="movePlayer('up')">Move Up</button>
+    <button class="btn" onclick="movePlayer('down')">Move Down</button>
     <p id="gameInfo"></p>
   </div>
 
@@ -64,11 +68,14 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
+    const SPRITE_SIZE = 40;
+    const MOVEMENT_SPEED = 10;
+
     let player = {
       x: 50,
       y: 300,
-      width: 40,
-      height: 40,
+      width: SPRITE_SIZE,
+      height: SPRITE_SIZE,
       color: '#a70000',
       health: 100,
     };
@@ -76,27 +83,41 @@
     let enemy = {
       x: 700,
       y: 300,
-      width: 40,
-      height: 40,
+      width: SPRITE_SIZE,
+      height: SPRITE_SIZE,
       color: '#ffffff',
       health: 100,
     };
 
-    function drawRect(obj) {
-      ctx.fillStyle = obj.color;
-      ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+    function drawSprite(obj, spritePath = null) {
+      if (spritePath) {
+        const img = new Image();
+        img.src = spritePath;
+        img.onload = () => ctx.drawImage(img, obj.x, obj.y, obj.width, obj.height);
+      } else {
+        ctx.fillStyle = obj.color;
+        ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+      }
     }
 
     function drawGame() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawRect(player);
-      drawRect(enemy);
+      drawSprite(player, 'player-sprite.png'); // Replace with player sprite image path
+      drawSprite(enemy, 'enemy-sprite.png'); // Replace with enemy sprite image path
       drawHUD();
     }
 
     function drawHUD() {
       const gameInfo = document.getElementById('gameInfo');
       gameInfo.innerHTML = `Player Health: ${player.health} | Enemy Health: ${enemy.health}`;
+    }
+
+    function movePlayer(direction) {
+      if (direction === 'left' && player.x > 0) player.x -= MOVEMENT_SPEED;
+      if (direction === 'right' && player.x + player.width < canvas.width) player.x += MOVEMENT_SPEED;
+      if (direction === 'up' && player.y > 0) player.y -= MOVEMENT_SPEED;
+      if (direction === 'down' && player.y + player.height < canvas.height) player.y += MOVEMENT_SPEED;
+      drawGame();
     }
 
     function attackEnemy() {
@@ -119,6 +140,10 @@
     function resetGame() {
       player.health = 100;
       enemy.health = 100;
+      player.x = 50;
+      player.y = 300;
+      enemy.x = 700;
+      enemy.y = 300;
       drawGame();
     }
 
