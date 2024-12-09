@@ -3,178 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grimdark Adventure</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:wght@300;400&display=swap" rel="stylesheet">
+    <meta name="description" content="Ayotha - Explore the dark and intricate world of Ayotha, a realm shrouded in mystery and danger. Discover its history, lore, and ongoing tales through our interactive wiki and website.">
+    <meta name="keywords" content="Ayotha, dark fantasy, lore, worldbuilding, RPG, fantasy wiki">
+    <meta name="author" content="Your Name">
+    <title>Ayotha - The Dark Fantasy Realm</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Spectral', serif;
-            background: #0f0f0f;
-            color: #a39453;
             margin: 0;
-            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #0f0f0f, #1e1e1e);
+            color: #dcdcdc;
         }
 
         header {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem;
+            background: #0f0f0f;
+            color: #a70000;
+            padding: 1rem 2rem;
             text-align: center;
-            padding: 1rem;
-            background: #a70000;
-            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
         }
 
-        main {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background: #1a1a1a;
-            border: 2px solid #a39453;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #000000;
+        header h1 {
+            font-family: 'Uncial Antiqua', serif;
+            margin: 0;
         }
 
-        .choice {
-            background: #a70000;
-            color: white;
-            padding: 1rem;
-            border: none;
-            margin: 0.5rem 0;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .choice:hover {
-            background: #b80000;
-        }
-
-        .status-bar {
+        nav {
             display: flex;
-            justify-content: space-between;
-            padding: 0.5rem;
-            background: #1a1a1a;
-            border-top: 2px solid #a39453;
+            justify-content: center;
+            margin-top: 1rem;
         }
 
-        .status-item {
-            font-size: 1rem;
+        nav a {
+            margin: 0 15px;
+            color: #dcdcdc;
+            text-decoration: none;
+            font-weight: 700;
         }
 
-        .log {
-            margin: 1rem 0;
-            padding: 0.5rem;
-            background: #262626;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            line-height: 1.4;
+        nav a:hover {
+            color: #a70000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            background: url('hero-image.jpg') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            font-family: 'Uncial Antiqua', serif;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #1e1e1e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .card h3 {
+            color: #a70000;
+        }
+
+        .card p {
+            color: #a39453;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            color: #dcdcdc;
+            background: #a70000;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .card a:hover {
+            background: #a39453;
         }
 
         footer {
             text-align: center;
+            padding: 1rem;
+            background: #0f0f0f;
+            color: #a39453;
             margin-top: 2rem;
-            font-size: 0.9rem;
-            color: #666;
+        }
+
+        footer a {
+            color: #dcdcdc;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #a70000;
         }
     </style>
 </head>
 <body>
-    <header>Grimdark Adventure</header>
-    <main>
-        <section id="story">
-            <p>The world is cloaked in eternal night. You stand at the edge of a crumbling village, the flickering light of your lantern barely keeping the oppressive shadows at bay. Whispers of unspeakable horrors echo from the forest ahead. What will you do?</p>
+    <header>
+        <h1>Ayotha</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#lore">Lore</a>
+            <a href="#history">History</a>
+            <a href="#wiki">Wiki</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Welcome to the Shadows of Ayotha</h2>
+    </section>
+
+    <main class="container">
+        <section id="about">
+            <h2>About Ayotha</h2>
+            <p>Ayotha is a world shrouded in mystery, illuminated by its own dark history. Discover tales of forgotten gods, powerful artifacts, and the perpetual struggle of light and shadow.</p>
         </section>
-        <div id="choices">
-            <button class="choice" data-choice="explore-forest">Venture into the forest</button>
-            <button class="choice" data-choice="search-village">Search the abandoned village</button>
-            <button class="choice" data-choice="rest-lantern">Rest and preserve the lantern's light</button>
-        </div>
-        <div class="log" id="log">
-            <p>Adventure Log:</p>
-        </div>
+
+        <section id="lore" class="grid">
+            <div class="card">
+                <h3>The Gods of Ayotha</h3>
+                <p>Learn about the pantheon of Ayotha, including Menos the God Binder and the Throne God.</p>
+                <a href="#">Discover More</a>
+            </div>
+            <div class="card">
+                <h3>Dark Relics</h3>
+                <p>Unravel the grim relics scattered across Ayotha, each holding immense power and dire consequences.</p>
+                <a href="#">Explore Relics</a>
+            </div>
+            <div class="card">
+                <h3>Kingdoms and Cultures</h3>
+                <p>Dive into the ancient Celtic and Mongol-inspired regions to the east, full of rich history and deadly intrigue.</p>
+                <a href="#">Read More</a>
+            </div>
+        </section>
+
+        <section id="history">
+            <h2>History of Ayotha</h2>
+            <p>Trace the timeline from the Age of Origination to the Age of Death, exploring the events that shaped this mysterious world.</p>
+        </section>
+
+        <section id="wiki">
+            <h2>Interactive Wiki</h2>
+            <p>Use our interactive wiki to browse through Ayotha's detailed entries, including characters, locations, events, and artifacts.</p>
+        </section>
     </main>
-    <div class="status-bar">
-        <span class="status-item" id="health">Health: 100</span>
-        <span class="status-item" id="sanity">Sanity: 100</span>
-        <span class="status-item" id="light">Light: 100</span>
-    </div>
-    <footer>© Grimdark Adventure Game</footer>
 
-    <script>
-        const storyElement = document.getElementById('story');
-        const choicesElement = document.getElementById('choices');
-        const logElement = document.getElementById('log');
-        const healthElement = document.getElementById('health');
-        const sanityElement = document.getElementById('sanity');
-        const lightElement = document.getElementById('light');
-
-        let playerStats = {
-            health: 100,
-            sanity: 100,
-            light: 100
-        };
-
-        const storyEvents = {
-            "explore-forest": {
-                text: "The forest is alive with malevolent whispers. As you press forward, you stumble upon an ancient shrine, its aura unsettling. Do you investigate or turn back?",
-                choices: [
-                    { text: "Investigate the shrine", action: "investigate-shrine" },
-                    { text: "Turn back to safety", action: "turn-back" }
-                ],
-                effects: { sanity: -10 }
-            },
-            "search-village": {
-                text: "The village is eerily silent. You find a derelict house with strange markings on the walls. Inside, a shadow moves. Do you confront it or flee?",
-                choices: [
-                    { text: "Confront the shadow", action: "confront-shadow" },
-                    { text: "Flee to the forest", action: "explore-forest" }
-                ],
-                effects: { light: -15 }
-            },
-            "rest-lantern": {
-                text: "You rest by your lantern. Its light flickers, but your body feels restored. However, the darkness outside grows bolder, its tendrils testing the edges of your light.",
-                choices: [
-                    { text: "Continue resting", action: "rest-more" },
-                    { text: "Venture into the village", action: "search-village" }
-                ],
-                effects: { health: +10, light: -10 }
-            }
-        };
-
-        function updateStats(effects) {
-            Object.keys(effects).forEach(key => {
-                playerStats[key] += effects[key];
-                if (playerStats[key] < 0) playerStats[key] = 0;
-            });
-
-            healthElement.textContent = `Health: ${playerStats.health}`;
-            sanityElement.textContent = `Sanity: ${playerStats.sanity}`;
-            lightElement.textContent = `Light: ${playerStats.light}`;
-        }
-
-        function loadEvent(eventKey) {
-            const event = storyEvents[eventKey];
-            if (!event) return;
-
-            storyElement.innerHTML = `<p>${event.text}</p>`;
-            updateStats(event.effects);
-            
-            choicesElement.innerHTML = "";
-            event.choices.forEach(choice => {
-                const button = document.createElement('button');
-                button.classList.add('choice');
-                button.textContent = choice.text;
-                button.dataset.choice = choice.action;
-                choicesElement.appendChild(button);
-            });
-        }
-
-        choicesElement.addEventListener('click', (e) => {
-            const choice = e.target.dataset.choice;
-            if (!choice) return;
-
-            logElement.innerHTML += `<p>${e.target.textContent}</p>`;
-            loadEvent(choice);
-        });
-    </script>
+    <footer>
+        <p>&copy; 2024 Ayotha. Designed with dark fantasy in mind. <a href="#">Privacy Policy</a></p>
+    </footer>
 </body>
 </html>
