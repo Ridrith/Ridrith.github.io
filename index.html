@@ -8,51 +8,56 @@
         body {
             margin: 0;
             font-family: "Merriweather", serif;
-            background-color: #121212;
+            background-color: #0e0e0e;
             color: #b3a78e;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
         header {
-            background: linear-gradient(to bottom, #1f1f1f, #121212);
-            color: #b3a78e;
-            text-align: center;
-            padding: 3rem 0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
             position: relative;
+            height: 100vh;
+            color: #f4f4f4;
+            text-align: center;
             overflow: hidden;
         }
 
-        header::before {
-            content: '';
+        header .animated-banner {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://via.placeholder.com/1920x400') center/cover no-repeat;
-            opacity: 0.2;
+            background: url('https://via.placeholder.com/1920x1080') center/cover no-repeat;
+            animation: slideBg 20s linear infinite;
             z-index: -1;
         }
 
         header h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin: 0;
+            padding-top: 20vh;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
         }
 
         header p {
-            font-size: 1.4rem;
-            margin-top: 0.5rem;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        @keyframes slideBg {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
 
         nav {
             position: sticky;
             top: 0;
-            background: #1a1a1a;
+            background: rgba(10, 10, 10, 0.9);
             display: flex;
-            justify-content: center;
-            padding: 1rem;
+            justify-content: space-around;
+            align-items: center;
+            padding: 1rem 2rem;
             z-index: 10;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
         }
@@ -60,8 +65,7 @@
         nav a {
             color: #b3a78e;
             text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             position: relative;
             transition: color 0.3s;
         }
@@ -85,54 +89,36 @@
         }
 
         .parallax {
-            background: url('https://via.placeholder.com/1920x600') center/cover no-repeat;
-            height: 400px;
-            position: relative;
-            z-index: 1;
-            background-attachment: fixed;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem auto;
-            max-width: 1200px;
-            padding: 0 1rem;
+            height: 500px;
+            background: url('https://via.placeholder.com/1920x800') center/cover no-repeat fixed;
         }
 
         .content-section {
+            width: 100%;
+            padding: 4rem 10%;
             background: #1e1e1e;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .content-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.9);
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
         }
 
         .content-section h2 {
-            font-size: 2.2rem;
-            border-bottom: 3px solid #b3a78e;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
             color: #e0c38a;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
         }
 
         .content-section p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #b3a78e;
+            margin: 1rem 0;
         }
 
         footer {
             text-align: center;
             padding: 2rem 0;
-            background: #1a1a1a;
+            background: #111;
             color: #b3a78e;
-            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.7);
         }
 
         footer a {
@@ -146,7 +132,6 @@
             background: #e0c38a;
             color: #1a1a1a;
             text-decoration: none;
-            margin-top: 1.5rem;
             border-radius: 5px;
             font-weight: bold;
             transition: background 0.3s, transform 0.3s;
@@ -156,38 +141,11 @@
             background: #b3a78e;
             transform: scale(1.05);
         }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                flex-wrap: wrap;
-            }
-
-            nav a {
-                margin: 0.5rem;
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 2s ease-in forwards;
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
     </style>
 </head>
 <body>
-    <header class="fade-in">
+    <header>
+        <div class="animated-banner"></div>
         <h1>Gallowshall</h1>
         <p>The Dark Fantasy E-Zine of Ohr Games</p>
     </header>
@@ -201,23 +159,25 @@
 
     <div class="parallax"></div>
 
-    <div class="main-content">
-        <section id="about" class="content-section">
-            <h2>About Gallowshall</h2>
-            <p>Gallowshall is your gateway to the shadowed corridors of dark fantasy, crafted by the minds at Ohr Games. Featuring exclusive insights, lore, and supplements for "Torches in the Dark" 3rd Edition, this e-zine delves into the depths of imagination and grim adventure.</p>
-            <a class="dark-button" href="#ttrpg">Learn More</a>
-        </section>
+    <div class="content-section" id="about">
+        <h2>About Gallowshall</h2>
+        <p>Gallowshall is your gateway to the shadowed corridors of dark fantasy, crafted by the minds at Ohr Games. Featuring exclusive insights, lore, and supplements for "Torches in the Dark" 3rd Edition, this e-zine delves into the depths of imagination and grim adventure.</p>
+        <a class="dark-button" href="#ttrpg">Learn More</a>
+    </div>
 
-        <section id="features" class="content-section">
-            <h2>Features</h2>
-            <p>From grim relics and harrowing campaign ideas to in-depth articles on roleplaying mechanics, Gallowshall delivers content that enriches your tabletop adventures. With a focus on community-driven development, every issue is a testament to collaboration and creativity.</p>
-        </section>
+    <div class="parallax"></div>
 
-        <section id="ttrpg" class="content-section">
-            <h2>Torches in the Dark 3rd Edition</h2>
-            <p>Enter the world of "Torches in the Dark"—a survival-focused TTRPG where heroes must overcome perilous odds. With enhanced mechanics, Grim Sorts for unique characters, and a dynamic dread system, this edition promises unforgettable tales in a world that thrives on danger and despair.</p>
-            <a class="dark-button" href="#">Explore the Game</a>
-        </section>
+    <div class="content-section" id="features">
+        <h2>Features</h2>
+        <p>From grim relics and harrowing campaign ideas to in-depth articles on roleplaying mechanics, Gallowshall delivers content that enriches your tabletop adventures. With a focus on community-driven development, every issue is a testament to collaboration and creativity.</p>
+    </div>
+
+    <div class="parallax"></div>
+
+    <div class="content-section" id="ttrpg">
+        <h2>Torches in the Dark 3rd Edition</h2>
+        <p>Enter the world of "Torches in the Dark"—a survival-focused TTRPG where heroes must overcome perilous odds. With enhanced mechanics, Grim Sorts for unique characters, and a dynamic dread system, this edition promises unforgettable tales in a world that thrives on danger and despair.</p>
+        <a class="dark-button" href="#">Explore the Game</a>
     </div>
 
     <footer>
