@@ -3,117 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torches in the Dark | Character Builder</title>
+    <title>Gravehold Character Builder</title>
     <style>
         body {
-            font-family: 'Times New Roman', serif;
-            background: #0f0f0f url('background.jpg') no-repeat center center fixed;
-            color: #a39453;
+            font-family: 'Arial', sans-serif;
+            background: #1c1c1c;
+            color: #e5e5e5;
             margin: 0;
             padding: 0;
-            background-size: cover;
+            line-height: 1.6;
         }
         header {
-            background: #a70000;
-            padding: 10px;
+            background: #2e2e2e;
             text-align: center;
-            color: #fff;
-            font-size: 24px;
+            padding: 20px 0;
+            font-size: 1.8rem;
             font-weight: bold;
+            color: #fefefe;
+            border-bottom: 2px solid #3d3d3d;
         }
         main {
             padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
         .section {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         label {
             display: block;
             margin: 10px 0 5px;
+            font-size: 1rem;
         }
-        select, input {
-            padding: 5px;
-            margin-bottom: 10px;
+        input[type="text"], select, button {
             width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+        }
+        input[type="number"] {
+            width: 70px;
+            padding: 5px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
         }
         button {
-            padding: 10px 20px;
-            background: #a70000;
+            background: #6200ea;
             color: #fff;
-            border: none;
+            font-size: 1rem;
             cursor: pointer;
+            transition: background 0.3s;
         }
         button:hover {
-            background: #a39453;
+            background: #3700b3;
         }
         .output {
-            margin-top: 20px;
-            padding: 10px;
-            background: #333;
-            color: #fff;
+            padding: 20px;
+            background: #2c2c2c;
             border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <header>Torches in the Dark: Character Builder</header>
+    <header>Gravehold: Character Builder</header>
     <main>
         <section class="section">
             <h2>Create Your Character</h2>
-            <form id="character-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+            <form id="characterForm">
+                <label for="name">Character Name:</label>
+                <input type="text" id="name" required>
 
                 <label for="race">Race:</label>
-                <select id="race" name="race">
-                    <option value="human">Human</option>
-                    <option value="dwarf">Dwarf</option>
-                    <option value="elf">Elf</option>
+                <select id="race">
+                    <option value="kin">Kin (Humans): +1 Any Attribute, Choose One Extra Skill</option>
+                    <option value="dvork">Dvork (Dwarves): +1 Might or Faith, Poison Resistance, +2 Vitality</option>
+                    <option value="yuldrangi">Yuldrangi (Elves): +1 Insight or Resolve, Advantage on Spell Saves, 1 Astral Spell</option>
+                    <option value="afrit">Afrit (Harkon): +1 Finesse or Endurance, Fire Resistance, No Heat Exhaustion</option>
+                    <option value="fomori">Fomori (Half-Giants): +1 Might or Endurance, +5 Stamina, Double Damage on First Melee Attack</option>
+                    <option value="klein-kuduk">Klein-Kuduk (Halflings): +1 Resolve or Finesse, Advantage on Stealth, Proficient in Stealth and Appraisal</option>
+                    <option value="sarkan">Sarkan (Drakon): +1 Endurance or Resolve, Flame Breath (3d6 Fire Damage, Once Per Short Rest)</option>
+                    <option value="mezoark">Mezoark (Serpent-Men): +1 Finesse or Faith, Poison Bite Attack</option>
+                    <option value="orgron">Orgron (Orkon): +1 Might or Resolve, Blood Rage (Bonus Damage When Below Half Stamina)</option>
+                    <option value="lumyn">Lumyn (Luminous): +1 Resolve or Faith, Blinding Light (Blind Enemies Once Per Day)</option>
+                    <option value="nolden">Nolden (Wytchborn): +1 Any Attribute, Force Disadvantage on an Attack Once Per Short Rest</option>
                 </select>
 
                 <label for="background">Background:</label>
-                <select id="background" name="background">
-                    <option value="alchemist">Alchemist</option>
-                    <option value="bandit">Bandit</option>
-                    <option value="duelist">Duelist</option>
+                <select id="background">
+                    <option value="guild-alchemist">Guild Alchemist: +1 Insight or Alchemy, Laboratory Equipment</option>
+                    <option value="alienist">Alienist: +1 Insight or Faith, Straightjacket, Parchment, Ink</option>
+                    <option value="guild-artisan">Guild Artisan: +1 Finesse or Might, Tools, Guild Membership</option>
+                    <option value="astrologer">Astrologer: +1 Insight or Occult Lore, Charts, Telescope</option>
+                    <option value="bandit">Bandit: +1 Might or Finesse, Bloody Golden Coin</option>
+                    <option value="beggar">Beggar: +1 Endurance or Faith, Alms Bowl</option>
+                    <option value="bodyguard">Bodyguard: +1 Might or Block, Long Sword, Shield</option>
+                    <option value="bounty-hunter">Bounty Hunter: +1 Might or Tracking, Manacles, Bounty Posters</option>
+                    <option value="bureaucrat">Bureaucrat: +1 Insight or Communication, Books, Ink, Quill</option>
+                    <option value="burglar">Burglar: +1 Finesse or Legerdemain, Grappling Hook, Rope, Crowbar</option>
+                    <option value="mutant">Mutant: +1 Endurance or Mutation, Cloak or Cowl</option>
+                    <option value="cavalryman">Cavalryman: +1 Might or Animal Training, Warhorse, Lance</option>
+                    <option value="coachman">Coachman: +1 Endurance or Finesse, Horse, Coach, Blunderbuss</option>
+                    <option value="demon-blooded">Demon-Blooded: +1 Endurance or Occult Lore, Page from Black Book</option>
+                    <option value="duelist">Duelist: +1 Finesse or Dodge, Rapier, Duelist's Hat</option>
+                    <option value="engineer">Engineer: +1 Insight or Gear Lore, Hammer, Books, Schematics</option>
+                    <option value="explorer">Explorer: +1 Endurance or Insight, Spyglass, Maps, Torches</option>
+                    <option value="farmer">Farmer: +1 Might or Endurance, Pitchfork, Straw Hat</option>
+                    <option value="frontiersman">Frontiersman: +1 Might or Nature Lore, Bow, Arrows, Cloak</option>
+                    <option value="fortune-teller">Fortune Teller: +1 Resolve or Ceremony, Crystal Ball, Tarot Cards</option>
+                    <option value="initiate">Initiate: +1 Faith or Religious Lore, Holy Symbol, Prayer Book</option>
+                    <option value="merchant">Merchant: +1 Insight or Appraisal, Goods Worth 250 Golm</option>
+                    <option value="mystic">Mystic: +1 Insight or Random Spell, Scrolls, Ink</option>
+                    <option value="noble">Noble: +1 Faith or History, 5D10x10 Golm</option>
+                    <option value="sellsword">Sellsword: +1 Might or Parry, Broad Sword, Breastplate</option>
+                    <option value="wytch-hunter">Wytch Hunter: +1 Faith or Occult Lore, Pistol, Bullets</option>
                 </select>
 
-                <label>Attribute Points (Distribute 10):</label>
-                <div>
-                    <label for="might">Might:</label>
-                    <input type="number" id="might" name="might" min="0" max="6" value="0">
+                <label for="equipment">Equipment Pack:</label>
+                <select id="equipment">
+                    <option value="centurion">Centurion: Gladius, Buckler, Legionnaire Armor</option>
+                    <option value="crusader">Crusader: Cross Hilt Sword, Kite Shield, Scale Gambeson</option>
+                    <option value="cultist">Cultist: War Hammer, Cloth Robe, Lay on Hands Spell</option>
+                    <option value="fallen-knight">Fallen Knight: Broad Sword, Jousting Shield, Mail and Surcoat</option>
+                    <option value="hedge-mage">Hedge Mage: Astral Bolt Spell, Hedge Magic, Oak Staff</option>
+                    <option value="hunter">Hunter: Hunting Bow, Spear, Quiver, Leather Armor</option>
+                    <option value="lost-soul">Lost Soul: Club, 12 Attribute Points (No Bonus Equipment)</option>
+                    <option value="marauder">Marauder: Battle Axe, Brigandine Armor, Torch & Tinderbox</option>
+                    <option value="mercenary">Mercenary: Great Sword, Field Plate, Executioner’s Mask</option>
+                    <option value="noble">Noble: Signet Ring, Ornate Rapier, Main Gauche, Fine Clothes</option>
+                    <option value="pyromancer">Pyromancer: Guild Amulet, Iron Torch, Dragon’s Breath Spell</option>
+                    <option value="samurai">Samurai: Naginata, Long Bow, Quiver, Reed Armor</option>
+                    <option value="technomancer">Technomancer: Matchlock Pistol, Bag of Bullets, Knife, Trench Coat</option>
+                    <option value="thief">Thief: Knife, Grappling Hook, Rope, Hooded Leathers</option>
+                </select>
 
-                    <label for="finesse">Finesse:</label>
-                    <input type="number" id="finesse" name="finesse" min="0" max="6" value="0">
+                <h3>Attributes</h3>
+                <p>Distribute 10 points among these attributes. Each starts at 0 (max 6).</p>
+                <label for="might">Might:</label>
+                <input type="number" id="might" min="0" max="6" value="0">
 
-                    <label for="endurance">Endurance:</label>
-                    <input type="number" id="endurance" name="endurance" min="0" max="6" value="0">
+                <label for="finesse">Finesse:</label>
+                <input type="number" id="finesse" min="0" max="6" value="0">
 
-                    <label for="insight">Insight:</label>
-                    <input type="number" id="insight" name="insight" min="0" max="6" value="0">
+                <label for="endurance">Endurance:</label>
+                <input type="number" id="endurance" min="0" max="6" value="0">
 
-                    <label for="resolve">Resolve:</label>
-                    <input type="number" id="resolve" name="resolve" min="0" max="6" value="0">
+                <label for="insight">Insight:</label>
+                <input type="number" id="insight" min="0" max="6" value="0">
 
-                    <label for="faith">Faith:</label>
-                    <input type="number" id="faith" name="faith" min="0" max="6" value="0">
-                </div>
+                <label for="resolve">Resolve:</label>
+                <input type="number" id="resolve" min="0" max="6" value="0">
+
+                <label for="faith">Faith:</label>
+                <input type="number" id="faith" min="0" max="6" value="0">
 
                 <button type="button" onclick="generateCharacter()">Generate Character</button>
             </form>
-
-            <div id="character-output" class="output"></div>
         </section>
+
         <section class="section">
-            <h2>Printable Character Sheet</h2>
-            <button onclick="printCharacterSheet()">Download Character Sheet</button>
+            <h2>Character Sheet</h2>
+            <div id="characterOutput" class="output"></div>
+            <button onclick="downloadCharacterSheet()">Download Character Sheet</button>
         </section>
     </main>
+
     <script>
         function generateCharacter() {
             const name = document.getElementById('name').value;
-            const race = document.getElementById('race').value;
-            const background = document.getElementById('background').value;
+            const race = document.getElementById('race').options[document.getElementById('race').selectedIndex].text;
+            const background = document.getElementById('background').options[document.getElementById('background').selectedIndex].text;
+            const equipment = document.getElementById('equipment').options[document.getElementById('equipment').selectedIndex].text;
             const might = document.getElementById('might').value;
             const finesse = document.getElementById('finesse').value;
             const endurance = document.getElementById('endurance').value;
@@ -122,28 +183,28 @@
             const faith = document.getElementById('faith').value;
 
             const output = `
-                <h3>Character Summary</h3>
-                <p><strong>Name:</strong> ${name}</p>
+                <h3>${name}</h3>
                 <p><strong>Race:</strong> ${race}</p>
                 <p><strong>Background:</strong> ${background}</p>
-                <p><strong>Attributes:</strong></p>
+                <p><strong>Equipment Pack:</strong> ${equipment}</p>
+                <h4>Attributes</h4>
                 <ul>
-                    <li>Might: ${might}</li>
-                    <li>Finesse: ${finesse}</li>
-                    <li>Endurance: ${endurance}</li>
-                    <li>Insight: ${insight}</li>
-                    <li>Resolve: ${resolve}</li>
-                    <li>Faith: ${faith}</li>
+                    <li><strong>Might:</strong> ${might}</li>
+                    <li><strong>Finesse:</strong> ${finesse}</li>
+                    <li><strong>Endurance:</strong> ${endurance}</li>
+                    <li><strong>Insight:</strong> ${insight}</li>
+                    <li><strong>Resolve:</strong> ${resolve}</li>
+                    <li><strong>Faith:</strong> ${faith}</li>
                 </ul>
             `;
-
-            document.getElementById('character-output').innerHTML = output;
+            document.getElementById('characterOutput').innerHTML = output;
         }
 
-        function printCharacterSheet() {
+        function downloadCharacterSheet() {
             const name = document.getElementById('name').value;
-            const race = document.getElementById('race').value;
-            const background = document.getElementById('background').value;
+            const race = document.getElementById('race').options[document.getElementById('race').selectedIndex].text;
+            const background = document.getElementById('background').options[document.getElementById('background').selectedIndex].text;
+            const equipment = document.getElementById('equipment').options[document.getElementById('equipment').selectedIndex].text;
             const might = document.getElementById('might').value;
             const finesse = document.getElementById('finesse').value;
             const endurance = document.getElementById('endurance').value;
@@ -155,21 +216,23 @@
                 Name: ${name}\n
                 Race: ${race}\n
                 Background: ${background}\n
+                Equipment Pack: ${equipment}\n
                 Attributes:\n
-                - Might: ${might}\n
-                - Finesse: ${finesse}\n
-                - Endurance: ${endurance}\n
-                - Insight: ${insight}\n
-                - Resolve: ${resolve}\n
-                - Faith: ${faith}\n
+                Might: ${might}\n
+                Finesse: ${finesse}\n
+                Endurance: ${endurance}\n
+                Insight: ${insight}\n
+                Resolve: ${resolve}\n
+                Faith: ${faith}\n
             `;
 
             const blob = new Blob([characterSheet], { type: 'text/plain' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `${name}_Character_Sheet.txt`;
+            link.download = `${name}_CharacterSheet.txt`;
             link.click();
         }
     </script>
 </body>
 </html>
+
