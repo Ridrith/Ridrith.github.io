@@ -3,305 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grimdark Interactive Fiction</title>
+    <title>Grimdark Adventure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Spectral:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        /* General styles */
         body {
+            font-family: 'Spectral', serif;
+            background: #0f0f0f;
+            color: #a39453;
             margin: 0;
-            overflow: hidden;
-            font-family: 'Merriweather', serif;
-            color: #f4f4f4;
-            background-color: #0f0f0f;
+            padding: 0;
         }
 
-        /* Parallax effect container */
-        .scene {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
+        header {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            text-align: center;
+            padding: 1rem;
+            background: #a70000;
+            color: white;
         }
 
-        .parallax {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            will-change: transform;
-        }
-
-        /* UI styles */
-        .story {
-            position: absolute;
-            bottom: 20%;
-            left: 10%;
-            right: 10%;
-            padding: 20px;
-            background: rgba(15, 15, 15, 0.8);
-            border: 2px solid #a70000;
-            box-shadow: 0 0 10px #a39453;
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #1a1a1a;
+            border: 2px solid #a39453;
             border-radius: 10px;
-        }
-
-        .choices {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            box-shadow: 0 0 10px #000000;
         }
 
         .choice {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #f4f4f4;
-            text-decoration: none;
             background: #a70000;
+            color: white;
+            padding: 1rem;
             border: none;
+            margin: 0.5rem 0;
+            cursor: pointer;
             border-radius: 5px;
-            transition: background 0.3s ease;
+            font-size: 1rem;
         }
 
         .choice:hover {
-            background: #f4f4f4;
-            color: #a70000;
-            cursor: pointer;
+            background: #b80000;
         }
 
-        .stats, .inventory {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(15, 15, 15, 0.8);
-            border: 2px solid #a70000;
-            color: #f4f4f4;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 14px;
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background: #1a1a1a;
+            border-top: 2px solid #a39453;
         }
 
-        .inventory {
-            left: auto;
-            right: 10px;
+        .status-item {
+            font-size: 1rem;
+        }
+
+        .log {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: #262626;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <div id="game"></div>
-    <div class="stats" id="stats">Stats: Stamina: 25, Vitality: 10, Morale: 100, Sanity: 100</div>
-    <div class="inventory" id="inventory">Inventory: Empty</div>
-
-    <audio id="ambientMusic" loop>
-        <source src="path/to/ambient-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <header>Grimdark Adventure</header>
+    <main>
+        <section id="story">
+            <p>The world is cloaked in eternal night. You stand at the edge of a crumbling village, the flickering light of your lantern barely keeping the oppressive shadows at bay. Whispers of unspeakable horrors echo from the forest ahead. What will you do?</p>
+        </section>
+        <div id="choices">
+            <button class="choice" data-choice="explore-forest">Venture into the forest</button>
+            <button class="choice" data-choice="search-village">Search the abandoned village</button>
+            <button class="choice" data-choice="rest-lantern">Rest and preserve the lantern's light</button>
+        </div>
+        <div class="log" id="log">
+            <p>Adventure Log:</p>
+        </div>
+    </main>
+    <div class="status-bar">
+        <span class="status-item" id="health">Health: 100</span>
+        <span class="status-item" id="sanity">Sanity: 100</span>
+        <span class="status-item" id="light">Light: 100</span>
+    </div>
+    <footer>© Grimdark Adventure Game</footer>
 
     <script>
-        const player = {
-            stamina: 25,
-            vitality: 10,
-            morale: 100,
+        const storyElement = document.getElementById('story');
+        const choicesElement = document.getElementById('choices');
+        const logElement = document.getElementById('log');
+        const healthElement = document.getElementById('health');
+        const sanityElement = document.getElementById('sanity');
+        const lightElement = document.getElementById('light');
+
+        let playerStats = {
+            health: 100,
             sanity: 100,
-            inventory: [],
+            light: 100
         };
 
-        const updateStats = () => {
-            const statsElement = document.getElementById('stats');
-            statsElement.textContent = `Stats: Stamina: ${player.stamina}, Vitality: ${player.vitality}, Morale: ${player.morale}, Sanity: ${player.sanity}`;
+        const storyEvents = {
+            "explore-forest": {
+                text: "The forest is alive with malevolent whispers. As you press forward, you stumble upon an ancient shrine, its aura unsettling. Do you investigate or turn back?",
+                choices: [
+                    { text: "Investigate the shrine", action: "investigate-shrine" },
+                    { text: "Turn back to safety", action: "turn-back" }
+                ],
+                effects: { sanity: -10 }
+            },
+            "search-village": {
+                text: "The village is eerily silent. You find a derelict house with strange markings on the walls. Inside, a shadow moves. Do you confront it or flee?",
+                choices: [
+                    { text: "Confront the shadow", action: "confront-shadow" },
+                    { text: "Flee to the forest", action: "explore-forest" }
+                ],
+                effects: { light: -15 }
+            },
+            "rest-lantern": {
+                text: "You rest by your lantern. Its light flickers, but your body feels restored. However, the darkness outside grows bolder, its tendrils testing the edges of your light.",
+                choices: [
+                    { text: "Continue resting", action: "rest-more" },
+                    { text: "Venture into the village", action: "search-village" }
+                ],
+                effects: { health: +10, light: -10 }
+            }
         };
 
-        const updateInventory = () => {
-            const inventoryElement = document.getElementById('inventory');
-            inventoryElement.textContent = `Inventory: ${player.inventory.length > 0 ? player.inventory.join(', ') : 'Empty'}`;
-        };
+        function updateStats(effects) {
+            Object.keys(effects).forEach(key => {
+                playerStats[key] += effects[key];
+                if (playerStats[key] < 0) playerStats[key] = 0;
+            });
 
-        const scenes = [
-            {
-                id: "1",
-                background: "path/to/your/image1.jpg",
-                text: "You awaken in a desolate wasteland. The air is thick with ash.",
-                choices: [
-                    { text: "Venture into the ruins", nextScene: "2" },
-                    { text: "Head towards the distant lights", nextScene: "3" }
-                ],
-                soundEffect: "path/to/sound1.mp3",
-                onEnter: () => player.sanity -= 5,
-            },
-            {
-                id: "2",
-                background: "path/to/your/image2.jpg",
-                text: "The ruins are hauntingly silent. Shadows move just out of sight.",
-                choices: [
-                    { text: "Investigate the shadows", nextScene: "4" },
-                    { text: "Search for supplies", nextScene: "5" }
-                ],
-                soundEffect: "path/to/sound2.mp3",
-                onEnter: () => player.inventory.push("Old Key"),
-            },
-            {
-                id: "3",
-                background: "path/to/your/image3.jpg",
-                text: "The lights lead to an ominous fortress. An uneasy dread fills you.",
-                choices: [
-                    { text: "Approach the gates", nextScene: "6" },
-                    { text: "Circle around", nextScene: "7" }
-                ],
-                soundEffect: "path/to/sound3.mp3",
-            },
-            {
-                id: "4",
-                background: "path/to/your/image4.jpg",
-                text: "You step closer to the shadows, feeling unseen eyes watching you.",
-                choices: [
-                    { text: "Confront the shadows", nextScene: "8" },
-                    { text: "Flee back to safety", nextScene: "5" }
-                ],
-                soundEffect: "path/to/sound4.mp3",
-            },
-            {
-                id: "5",
-                background: "path/to/your/image5.jpg",
-                text: "You find an abandoned satchel with a few supplies inside.",
-                choices: [
-                    { text: "Continue exploring", nextScene: "9" },
-                    { text: "Return to the wasteland", nextScene: "1" }
-                ],
-                soundEffect: "path/to/sound5.mp3",
-            },
-            {
-                id: "6",
-                background: "path/to/your/image6.jpg",
-                text: "The gates groan open as you approach, revealing a dark courtyard.",
-                choices: [
-                    { text: "Enter the courtyard", nextScene: "10" },
-                    { text: "Retreat into the shadows", nextScene: "7" }
-                ],
-                soundEffect: "path/to/sound6.mp3",
-            },
-            {
-                id: "7",
-                background: "path/to/your/image7.jpg",
-                text: "Circling the fortress, you find a hidden passageway.",
-                choices: [
-                    { text: "Enter the passageway", nextScene: "11" },
-                    { text: "Return to the gates", nextScene: "6" }
-                ],
-                soundEffect: "path/to/sound7.mp3",
-            },
-            {
-                id: "8",
-                background: "path/to/your/image8.jpg",
-                text: "The shadows coalesce into a monstrous form. You draw your weapon.",
-                choices: [
-                    { text: "Fight", nextScene: "12" },
-                    { text: "Run", nextScene: "5" }
-                ],
-                soundEffect: "path/to/sound8.mp3",
-            },
-            {
-                id: "9",
-                background: "path/to/your/image9.jpg",
-                text: "The landscape changes as you wander deeper into the ruins.",
-                choices: [
-                    { text: "Continue forward", nextScene: "13" },
-                    { text: "Head back", nextScene: "2" }
-                ],
-                soundEffect: "path/to/sound9.mp3",
-            },
-            {
-                id: "10",
-                background: "path/to/your/image10.jpg",
-                text: "The courtyard is eerily quiet. You feel something ancient watching.",
-                choices: [
-                    { text: "Investigate", nextScene: "14" },
-                    { text: "Leave", nextScene: "6" }
-                ],
-                soundEffect: "path/to/sound10.mp3",
-            },
-            {
-                id: "11",
-                background: "path/to/your/image11.jpg",
-                text: "The passageway leads to a dark chamber with strange carvings.",
-                choices: [
-                    { text: "Examine the carvings", nextScene: "15" },
-                    { text: "Return to the surface", nextScene: "7" }
-                ],
-                soundEffect: "path/to/sound11.mp3",
-            },
-            {
-                id: "12",
-                background: "path/to/your/image12.jpg",
-                text: "The battle is fierce. You manage to defeat the shadowy form.",
-                choices: [
-                    { text: "Search the remains", nextScene: "9" },
-                    { text: "Move deeper into the ruins", nextScene: "13" }
-                ],
-                soundEffect: "path/to/sound12.mp3",
-            },
-            {
-                id: "13",
-                background: "path/to/your/image13.jpg",
-                text: "You find yourself at the edge of a vast chasm.",
-                choices: [
-                    { text: "Attempt to cross", nextScene: "14" },
-                    { text: "Turn back", nextScene: "10" }
-                ],
-                soundEffect: "path/to/sound13.mp3",
-            },
-            {
-                id: "14",
-                background: "path/to/your/image14.jpg",
-                text: "A strange light beckons you from across the chasm.",
-                choices: [
-                    { text: "Follow the light", nextScene: "endWin" },
-                    { text: "Ignore it and move forward", nextScene: "9" }
-                ],
-                soundEffect: "path/to/sound14.mp3",
-            },
-            {
-                id: "15",
-                background: "path/to/your/image15.jpg",
-                text: "The carvings glow as you approach, revealing an ancient truth.",
-                choices: [
-                    { text: "Embrace the truth", nextScene: "1" },
-                    { text: "Turn away", nextScene: "2" }
-                ],
-                soundEffect: "path/to/sound15.mp3",
-            },
-            {
-                id: "endWin",
-                background: "path/to/your/victory.jpg",
-                text: "You have reached the end of your journey. The truth is now yours to wield.",
-                choices: [
-                    { text: "Start Over", nextScene: "1" }
-                ],
-                soundEffect: "path/to/victory.mp3",
-            },
-            {
-                id: "endFail",
-                background: "path/to/your/fail.jpg",
-                text: "You were no match for the monstrous form. Your story ends here.",
-                choices: [
-                    { text: "Try Again", nextScene: "1" }
-                ],
-                soundEffect: "path/to/fail.mp3",
-            },
-        ];
+            healthElement.textContent = `Health: ${playerStats.health}`;
+            sanityElement.textContent = `Sanity: ${playerStats.sanity}`;
+            lightElement.textContent = `Light: ${playerStats.light}`;
+        }
 
-        const ambientMusic = document.getElementById("ambientMusic");
-        const soundEffect = new Audio();
+        function loadEvent(eventKey) {
+            const event = storyEvents[eventKey];
+            if (!event) return;
 
-        ambientMusic.volume = 0.5;
-        ambientMusic.play();
+            storyElement.innerHTML = `<p>${event.text}</p>`;
+            updateStats(event.effects);
+            
+            choicesElement.innerHTML = "";
+            event.choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.classList.add('choice');
+                button.textContent = choice.text;
+                button.dataset.choice = choice.action;
+                choicesElement.appendChild(button);
+            });
+        }
 
-        const renderScene = (sceneId) => {
-            const scene = scenes.find(s => s.id === sceneId);
-            const gameContainer = document.getElementById("game");
+        choicesElement.addEventListener('click', (e) => {
+            const choice = e.target.dataset.choice;
+            if (!choice) return;
 
-            if (scene.onEnter) scene.onEnter();
-            updateStats();
-            updateInventory();
-
-            gameContainer.innerHTML = `
-                <div class="scene">
-                    <div class="parallax" style="background-image: url('${scene.background}');"></div>
-                    <div class="story">
-                        <p>${scene.text
+            logElement.innerHTML += `<p>${e.target.textContent}</p>`;
+            loadEvent(choice);
+        });
+    </script>
+</body>
+</html>
