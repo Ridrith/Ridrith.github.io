@@ -12,26 +12,20 @@
             color: #b3a78e;
             line-height: 1.6;
             overflow-x: hidden;
-            text-align: center;
         }
 
         header {
             position: relative;
-            height: 60vh;
+            height: 50vh;
             color: #f4f4f4;
             text-align: center;
             overflow: hidden;
-        }
-
-        header .animated-banner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             background: linear-gradient(120deg, #2e2e2e, #121212, #2e2e2e);
             animation: gradientShift 10s infinite alternate;
-            z-index: -1;
         }
 
         @keyframes gradientShift {
@@ -42,13 +36,12 @@
         header h1 {
             font-size: 3rem;
             margin: 0;
-            padding-top: 15vh;
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
         }
 
         header p {
             font-size: 1.2rem;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
 
         nav {
@@ -74,31 +67,40 @@
             color: #e0c38a;
         }
 
-        .parallax {
-            height: 300px;
-            background: url('https://via.placeholder.com/1920x800') center/cover no-repeat fixed;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
         }
 
-        .content-section {
-            width: 100%;
-            padding: 3rem 5%;
+        .content-box {
             background: #1e1e1e;
-            text-align: center;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
-            margin-bottom: 2rem;
-        }
-
-        .content-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #e0c38a;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-        }
-
-        .content-section p {
-            font-size: 1.2rem;
             color: #b3a78e;
-            margin: 1rem auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            flex: 1 1 calc(33% - 2rem);
+            min-width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9);
+        }
+
+        .content-box h2 {
+            font-size: 1.8rem;
+            color: #e0c38a;
+            margin-bottom: 1rem;
+        }
+
+        .content-box p {
+            font-size: 1rem;
         }
 
         footer {
@@ -132,7 +134,6 @@
 </head>
 <body>
     <header>
-        <div class="animated-banner"></div>
         <h1>Gallowshall</h1>
         <p>The Dark Fantasy E-Zine of Ohr Games</p>
     </header>
@@ -144,27 +145,21 @@
         <a href="#contact">Contact</a>
     </nav>
 
-    <div class="parallax"></div>
+    <div class="container">
+        <div class="content-box" id="about">
+            <h2>About Gallowshall</h2>
+            <p>Gallowshall is your gateway to the shadowed corridors of dark fantasy, crafted by the minds at Ohr Games. Featuring exclusive insights, lore, and supplements for "Torches in the Dark" 3rd Edition, this e-zine delves into the depths of imagination and grim adventure.</p>
+        </div>
 
-    <div class="content-section" id="about">
-        <h2>About Gallowshall</h2>
-        <p>Gallowshall is your gateway to the shadowed corridors of dark fantasy, crafted by the minds at Ohr Games. Featuring exclusive insights, lore, and supplements for "Torches in the Dark" 3rd Edition, this e-zine delves into the depths of imagination and grim adventure.</p>
-        <a class="dark-button" href="#ttrpg">Learn More</a>
-    </div>
+        <div class="content-box" id="features">
+            <h2>Features</h2>
+            <p>From grim relics and harrowing campaign ideas to in-depth articles on roleplaying mechanics, Gallowshall delivers content that enriches your tabletop adventures. With a focus on community-driven development, every issue is a testament to collaboration and creativity.</p>
+        </div>
 
-    <div class="parallax"></div>
-
-    <div class="content-section" id="features">
-        <h2>Features</h2>
-        <p>From grim relics and harrowing campaign ideas to in-depth articles on roleplaying mechanics, Gallowshall delivers content that enriches your tabletop adventures. With a focus on community-driven development, every issue is a testament to collaboration and creativity.</p>
-    </div>
-
-    <div class="parallax"></div>
-
-    <div class="content-section" id="ttrpg">
-        <h2>Torches in the Dark 3rd Edition</h2>
-        <p>Enter the world of "Torches in the Dark"—a survival-focused TTRPG where heroes must overcome perilous odds. With enhanced mechanics, Grim Sorts for unique characters, and a dynamic dread system, this edition promises unforgettable tales in a world that thrives on danger and despair.</p>
-        <a class="dark-button" href="#">Explore the Game</a>
+        <div class="content-box" id="ttrpg">
+            <h2>Torches in the Dark 3rd Edition</h2>
+            <p>Enter the world of "Torches in the Dark"—a survival-focused TTRPG where heroes must overcome perilous odds. With enhanced mechanics, Grim Sorts for unique characters, and a dynamic dread system, this edition promises unforgettable tales in a world that thrives on danger and despair.</p>
+        </div>
     </div>
 
     <footer>
