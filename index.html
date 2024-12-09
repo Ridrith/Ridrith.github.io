@@ -3,164 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Interactive Lorebook for TTRPG">
-    <title>Interactive Lorebook</title>
+    <title>Torches in the Dark | Gravehold</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #f4f4f4;
+            font-family: 'Times New Roman', serif;
+            background: #0f0f0f url('background.jpg') no-repeat center center fixed;
+            color: #a39453;
             margin: 0;
             padding: 0;
+            background-size: cover;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
+        header {
+            background: #a70000;
+            padding: 10px;
             text-align: center;
-            color: #a39453;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
         }
-        .search-bar {
+        nav {
             display: flex;
             justify-content: center;
+            background: #333;
+        }
+        nav a {
+            color: #fff;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        nav a:hover {
+            background: #a39453;
+            color: #0f0f0f;
+        }
+        main {
+            padding: 20px;
+        }
+        .section {
             margin-bottom: 20px;
         }
-        .search-bar input {
-            width: 80%;
+        .accordion {
+            background: #333;
+            color: #fff;
+            cursor: pointer;
             padding: 10px;
-            font-size: 16px;
-            border: 1px solid #a39453;
-            border-radius: 5px;
-            background-color: #2b2b2b;
-            color: #f4f4f4;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            transition: 0.4s;
         }
-        .entry {
-            margin-bottom: 20px;
-            border: 1px solid #a39453;
-            border-radius: 5px;
-            background-color: #1e1e1e;
-            padding: 15px;
-            transition: transform 0.2s;
+        .accordion:hover {
+            background: #a39453;
         }
-        .entry:hover {
-            transform: scale(1.02);
-        }
-        .entry-title {
-            font-size: 1.5em;
-            color: #a70000;
-        }
-        .entry-content {
-            margin-top: 10px;
-            line-height: 1.6;
-        }
-        .hidden {
+        .panel {
+            padding: 10px;
             display: none;
+            background-color: #444;
+            overflow: hidden;
+        }
+        .dice {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .dice button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #a70000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .dice button:hover {
+            background: #a39453;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Interactive Lorebook</h1>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search lore...">
-        </div>
-        <div id="loreEntries">
-            <!-- Entries will be dynamically loaded -->
-        </div>
-    </div>
+    <header>Torches in the Dark: Gravehold</header>
+    <nav>
+        <a href="#rules">Rules</a>
+        <a href="#builder">Character Builder</a>
+        <a href="#dice">Dice Roller</a>
+        <a href="#lore">Lore</a>
+    </nav>
+    <main>
+        <section id="rules" class="section">
+            <h2>Rules</h2>
+            <button class="accordion">Combat Rules</button>
+            <div class="panel">
+                <p>Combat is resolved using action points and the Omen Die. Each player has three action points per turn...</p>
+            </div>
+            <button class="accordion">Exploration</button>
+            <div class="panel">
+                <p>Exploration in dungeons uses a dread mechanic. Every turn, light sources diminish...</p>
+            </div>
+        </section>
+        <section id="builder" class="section">
+            <h2>Character Builder</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br><br>
 
+                <label for="race">Race:</label>
+                <select id="race" name="race">
+                    <option value="human">Human</option>
+                    <option value="elf">Elf</option>
+                    <option value="dwarf">Dwarf</option>
+                </select><br><br>
+
+                <label for="class">Class:</label>
+                <select id="class" name="class">
+                    <option value="fighter">Fighter</option>
+                    <option value="mage">Mage</option>
+                    <option value="rogue">Rogue</option>
+                </select><br><br>
+
+                <button type="button" onclick="generateCharacter()">Generate Character</button>
+            </form>
+            <div id="character-output"></div>
+        </section>
+        <section id="dice" class="section">
+            <h2>Dice Roller</h2>
+            <div class="dice">
+                <button onclick="rollDice(4)">Roll D4</button>
+                <button onclick="rollDice(6)">Roll D6</button>
+                <button onclick="rollDice(8)">Roll D8</button>
+                <button onclick="rollDice(10)">Roll D10</button>
+                <button onclick="rollDice(12)">Roll D12</button>
+                <button onclick="rollDice(20)">Roll D20</button>
+            </div>
+            <p id="dice-result"></p>
+        </section>
+        <section id="lore" class="section">
+            <h2>Lore</h2>
+            <p>Discover the grim world of Gravehold, where shadows twist and light is a fleeting beacon in the dark...</p>
+        </section>
+    </main>
+    <footer>
+        &copy; 2024 Torches in the Dark: Gravehold. All rights reserved.
+    </footer>
     <script>
-        const searchInput = document.getElementById('searchInput');
-        const loreContainer = document.getElementById('loreEntries');
-
-        // ==========================
-        // 1. ENTER YOUR NOTION API KEY
-        // ==========================
-        const apiKey = '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'; // Replace this with your Notion API key
-
-        // ==========================
-        // 2. ENTER YOUR DATABASE ID
-        // ==========================
-        const databaseId = '3728bb22bf6a4be5992ce50c2fcf85dc'; // Replace this with your database ID
-
-        // Function to load data from Notion API
-        async function fetchLoreFromNotion() {
-            try {
-                // Query the database
-                const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Notion-Version': '2022-06-28',
-                        'Content-Type': 'application/json',
-                    },
-                });
-
-                if (!response.ok) throw new Error('Failed to fetch Notion data');
-
-                const data = await response.json();
-
-                // Process database results
-                for (const result of data.results) {
-                    const title = result.properties.Name.title[0]?.plain_text || 'Untitled';
-                    const description = result.properties.Description?.rich_text[0]?.plain_text || '';
-                    const pageId = result.id;
-
-                    // Fetch page content
-                    const pageContentResponse = await fetch(`https://api.notion.com/v1/blocks/${pageId}/children`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${apiKey}`,
-                            'Notion-Version': '2022-06-28',
-                        },
-                    });
-
-                    if (!pageContentResponse.ok) throw new Error('Failed to fetch page content');
-                    const pageContentData = await pageContentResponse.json();
-
-                    // Extract block text
-                    const pageContent = pageContentData.results
-                        .map(block => block.paragraph?.rich_text[0]?.plain_text || '')
-                        .join('\n');
-
-                    // Create entry div
-                    const entryDiv = document.createElement('div');
-                    entryDiv.classList.add('entry');
-                    entryDiv.innerHTML = `
-                        <div class="entry-title">${title}</div>
-                        <div class="entry-content">
-                            <strong>Description:</strong> ${description}<br>
-                            <strong>Content:</strong><br>${pageContent || 'No additional content available.'}
-                        </div>
-                    `;
-                    loreContainer.appendChild(entryDiv);
-                }
-            } catch (error) {
-                console.error('Error loading Notion data:', error);
-            }
-        }
-
-        // Search functionality
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.toLowerCase();
-            const entries = document.querySelectorAll('.entry');
-
-            entries.forEach(entry => {
-                const title = entry.querySelector('.entry-title').textContent.toLowerCase();
-                const content = entry.querySelector('.entry-content').textContent.toLowerCase();
-
-                if (title.includes(query) || content.includes(query)) {
-                    entry.classList.remove('hidden');
-                } else {
-                    entry.classList.add('hidden');
-                }
+        const accordions = document.querySelectorAll('.accordion');
+        accordions.forEach(acc => {
+            acc.addEventListener('click', () => {
+                acc.classList.toggle('active');
+                const panel = acc.nextElementSibling;
+                panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
             });
         });
 
-        // Call the function to fetch data
-        fetchLoreFromNotion();
+        function rollDice(sides) {
+            const result = Math.floor(Math.random() * sides) + 1;
+            document.getElementById('dice-result').textContent = `You rolled a D${sides}: ${result}`;
+        }
+
+        function generateCharacter() {
+            const name = document.getElementById('name').value;
+            const race = document.getElementById('race').value;
+            const charClass = document.getElementById('class').value;
+            const output = `Name: ${name} | Race: ${race} | Class: ${charClass}`;
+            document.getElementById('character-output').textContent = output;
+        }
     </script>
 </body>
 </html>
