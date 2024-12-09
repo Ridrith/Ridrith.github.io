@@ -7,10 +7,15 @@
     <style>
         body {
             margin: 0;
-            font-family: 'Merriweather', serif;
-            background: #0f0f0f;
-            color: #a39453;
+            font-family: 'Spectral', serif;
+            background: #1a1a1a;
+            color: #d4c9a3;
             overflow-x: hidden;
+        }
+
+        /* Smooth transitions and animations */
+        * {
+            transition: all 0.3s ease;
         }
 
         /* Vertical Navigation */
@@ -18,21 +23,23 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 220px;
+            width: 240px;
             height: 100%;
-            background: #a70000;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            background: #2e2e2e;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.8);
+            z-index: 10;
         }
 
         #nav h1 {
             text-align: center;
-            font-size: 24px;
-            color: #fff;
+            font-size: 26px;
+            color: #f4f4f4;
             margin: 20px 0;
             font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
         }
 
         #nav ul {
@@ -42,77 +49,89 @@
         }
 
         #nav ul li {
-            margin: 10px 0;
+            margin: 15px 0;
         }
 
         #nav ul li a {
             text-decoration: none;
             font-size: 18px;
-            color: #fff;
+            color: #b5b5b5;
             padding: 10px 20px;
             display: block;
-            transition: background 0.3s;
+            border-left: 4px solid transparent;
         }
 
         #nav ul li a:hover {
-            background: #7f0000;
+            color: #fff;
+            background: #3e3e3e;
+            border-left: 4px solid #d4c9a3;
         }
 
         #content {
-            margin-left: 220px;
-            padding: 20px;
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            margin-left: 240px;
+            padding: 40px;
         }
 
         header {
             position: relative;
-            height: 400px;
+            height: 500px;
             background: url('header-image.jpg') center / cover no-repeat;
             color: #fff;
-            text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         header h1 {
-            font-size: 48px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 64px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+            font-family: 'Cinzel', serif;
         }
 
         section {
-            margin: 20px 0;
+            margin: 40px 0;
         }
 
         section h2 {
-            font-size: 36px;
-            border-bottom: 2px solid #a39453;
+            font-size: 42px;
+            border-bottom: 3px solid #d4c9a3;
             padding-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         section p {
             line-height: 1.8;
+            font-size: 18px;
         }
 
         .parallax {
             background: url('parallax-image.jpg') center / cover no-repeat fixed;
-            height: 300px;
+            height: 400px;
         }
 
         .wiki-section {
-            padding: 20px;
-            background: #1a1a1a;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            background: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
         }
 
-        .smooth-transition {
-            transition: all 0.3s ease;
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1a1a1a;
+            border-top: 1px solid #d4c9a3;
+            color: #b5b5b5;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #d4c9a3;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -120,47 +139,51 @@
     <div id="nav">
         <h1>Gallowshall</h1>
         <ul>
-            <li><a href="#home" class="smooth-transition">Home</a></li>
-            <li><a href="#issues" class="smooth-transition">Issues</a></li>
-            <li><a href="#articles" class="smooth-transition">Articles</a></li>
-            <li><a href="#submissions" class="smooth-transition">Submissions</a></li>
-            <li><a href="#contact" class="smooth-transition">Contact</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#issues">Issues</a></li>
+            <li><a href="#articles">Articles</a></li>
+            <li><a href="#submissions">Submissions</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </div>
 
     <div id="content">
         <header>
-            <h1>Welcome to Gallowshall</h1>
+            <h1>Gallowshall</h1>
         </header>
 
         <section id="home">
             <h2>About Gallowshall</h2>
-            <p>Gallowshall is a dark fantasy e-zine exploring the realms of despair, intrigue, and adventure within the world of Torches in the Dark 3rd Edition. With each issue, we delve into new stories, game mechanics, and community contributions to bring the darkness to life.</p>
+            <p>Explore the shadowed depths of dark fantasy with Gallowshall, the e-zine crafted for Torches in the Dark 3rd Edition. Join us as we unearth tales of intrigue, despair, and relentless adventure.</p>
         </section>
 
         <div class="parallax"></div>
 
         <section id="issues" class="wiki-section">
             <h2>Past Issues</h2>
-            <p>Discover our past issues filled with lore, character stories, and gameplay innovations. Each issue is a treasure trove for players and game masters alike.</p>
+            <p>Dive into our archive and discover a trove of lore, character narratives, and groundbreaking gameplay mechanics. Each issue is a journey into the unknown.</p>
         </section>
 
         <section id="articles" class="wiki-section">
             <h2>Featured Articles</h2>
-            <p>Dive into our collection of articles, where we explore game mechanics, storytelling tips, and player experiences. Gallowshall is your guide to mastering the dark fantasy setting.</p>
+            <p>Gain insights into the art of storytelling, delve into innovative mechanics, and share the experiences of players and GMs within our vibrant community.</p>
         </section>
 
         <div class="parallax"></div>
 
         <section id="submissions" class="wiki-section">
             <h2>Submissions</h2>
-            <p>We welcome contributions from our community. Submit your stories, artwork, or gameplay ideas to be featured in upcoming issues of Gallowshall.</p>
+            <p>We welcome your creativity. Submit your stories, art, or ideas to Gallowshall and become part of our ever-growing tapestry of dark fantasy.</p>
         </section>
 
         <section id="contact" class="wiki-section">
             <h2>Contact Us</h2>
-            <p>Have questions or ideas? Reach out to our team at Gallowshall and let us know how we can help illuminate the dark corners of your imagination.</p>
+            <p>Questions or ideas? Reach out to the Gallowshall team and illuminate the darkest corners of imagination.</p>
         </section>
     </div>
+
+    <footer>
+        <p>&copy; 2024 Gallowshall. All Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+    </footer>
 </body>
 </html>
