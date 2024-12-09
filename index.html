@@ -3,167 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallowshall: A Dark Fantasy E-Zine</title>
+    <meta name="description" content="Digital Rulebook - A Dark Fantasy Themed Website">
+    <title>Dark Fantasy Digital Rulebook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
             margin: 0;
-            font-family: "Merriweather", serif;
-            background-color: #121212;
-            color: #b3a78e;
-            line-height: 1.6;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Spectral', serif;
+            background: #0f0f0f;
+            color: #a39453;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         header {
-            position: relative;
-            height: 50vh;
-            color: #f4f4f4;
-            text-align: center;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(120deg, #2e2e2e, #121212, #2e2e2e);
-            animation: gradientShift 10s infinite alternate;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+            padding: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
         }
 
         header h1 {
-            font-size: 3rem;
-            margin: 0;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-        }
-
-        header p {
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 2.5rem;
+            color: #d4af37;
         }
 
         nav {
-            position: sticky;
-            top: 0;
-            background: rgba(10, 10, 10, 0.9);
+            margin-top: 1rem;
             display: flex;
-            justify-content: center;
-            padding: 1rem;
-            z-index: 10;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+            gap: 2rem;
         }
 
         nav a {
-            color: #b3a78e;
             text-decoration: none;
-            font-size: 1.1rem;
-            margin: 0 1.5rem;
-            transition: color 0.3s;
+            color: #a39453;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
         }
 
         nav a:hover {
-            color: #e0c38a;
+            color: #d4af37;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
+        .hero {
+            height: 100vh;
             display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
+            align-items: center;
             justify-content: center;
+            background: url('https://source.unsplash.com/1920x1080/?dark,fantasy') center/cover no-repeat;
+            text-align: center;
+            color: #f8f5f0;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.9);
         }
 
-        .content-box {
-            background: #1e1e1e;
-            color: #b3a78e;
-            border-radius: 10px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
-            padding: 2rem;
-            flex: 1 1 calc(33% - 2rem);
-            min-width: 300px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .content-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9);
-        }
-
-        .content-box h2 {
-            font-size: 1.8rem;
-            color: #e0c38a;
+        .hero h2 {
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 5px #000;
             margin-bottom: 1rem;
         }
 
-        .content-box p {
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 60%;
+            margin: auto;
+        }
+
+        section {
+            padding: 4rem 2rem;
+            animation: fadeIn 1s ease;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            color: #d4af37;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
             font-size: 1rem;
+            color: #a39453;
         }
 
         footer {
+            background: #0f0f0f;
             text-align: center;
-            padding: 2rem 0;
-            background: #111;
-            color: #b3a78e;
+            padding: 2rem;
+            color: #a39453;
+            font-size: 0.9rem;
         }
 
         footer a {
-            color: #e0c38a;
-            text-decoration: underline;
-        }
-
-        .dark-button {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: #e0c38a;
-            color: #1a1a1a;
+            color: #d4af37;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.3s;
+            transition: color 0.3s ease;
         }
 
-        .dark-button:hover {
-            background: #b3a78e;
-            transform: scale(1.05);
+        footer a:hover {
+            color: #a39453;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Gallowshall</h1>
-        <p>The Dark Fantasy E-Zine of Ohr Games</p>
+        <h1>Digital Rulebook</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#rules">Rules</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
-    <nav>
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#ttrpg">Torches in the Dark</a>
-        <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="container">
-        <div class="content-box" id="about">
-            <h2>About Gallowshall</h2>
-            <p>Gallowshall is your gateway to the shadowed corridors of dark fantasy, crafted by the minds at Ohr Games. Featuring exclusive insights, lore, and supplements for "Torches in the Dark" 3rd Edition, this e-zine delves into the depths of imagination and grim adventure.</p>
-        </div>
-
-        <div class="content-box" id="features">
-            <h2>Features</h2>
-            <p>From grim relics and harrowing campaign ideas to in-depth articles on roleplaying mechanics, Gallowshall delivers content that enriches your tabletop adventures. With a focus on community-driven development, every issue is a testament to collaboration and creativity.</p>
-        </div>
-
-        <div class="content-box" id="ttrpg">
-            <h2>Torches in the Dark 3rd Edition</h2>
-            <p>Enter the world of "Torches in the Dark"—a survival-focused TTRPG where heroes must overcome perilous odds. With enhanced mechanics, Grim Sorts for unique characters, and a dynamic dread system, this edition promises unforgettable tales in a world that thrives on danger and despair.</p>
+    <div class="hero">
+        <div>
+            <h2>Enter the World of Dark Fantasy</h2>
+            <p>Discover the rules, lore, and mechanics of the ultimate tabletop adventure.</p>
         </div>
     </div>
 
+    <section id="about">
+        <h2 class="section-title">About</h2>
+        <div class="content-grid">
+            <div class="card">
+                <h3>Immersive Lore</h3>
+                <p>Dive into a world of dark fantasy, where every choice shapes your destiny.</p>
+            </div>
+            <div class="card">
+                <h3>Streamlined Mechanics</h3>
+                <p>Experience a game system designed for simplicity and strategy.</p>
+            </div>
+            <div class="card">
+                <h3>Collaborative Gameplay</h3>
+                <p>Forge alliances and overcome challenges with your companions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="rules">
+        <h2 class="section-title">Rules</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+            Explore the rules that govern this world. Simplified for clarity, yet rich with depth.
+        </p>
+        <div class="content-grid">
+            <div class="card">
+                <h3>Combat System</h3>
+                <p>Fast-paced, action-driven mechanics with endless possibilities.</p>
+            </div>
+            <div class="card">
+                <h3>Character Progression</h3>
+                <p>Level up through achievements and epic tales.</p>
+            </div>
+            <div class="card">
+                <h3>Dynamic Challenges</h3>
+                <p>Face enemies, solve puzzles, and uncover secrets in a living world.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <h2 class="section-title">FAQ</h2>
+        <div class="content-grid">
+            <div class="card">
+                <h3>Getting Started</h3>
+                <p>How to begin your journey in the world of dark fantasy.</p>
+            </div>
+            <div class="card">
+                <h3>Game Components</h3>
+                <p>Learn what you need to play, from dice to character sheets.</p>
+            </div>
+            <div class="card">
+                <h3>Player Resources</h3>
+                <p>Access guides, templates, and resources to enhance gameplay.</p>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <p>&copy; 2024 Ohr Games. All rights reserved. | <a href="#contact">Contact Us</a></p>
+        <p>&copy; 2024 Digital Rulebook | Designed with passion for dark fantasy enthusiasts.</p>
+        <p><a href="#">Back to Top</a></p>
     </footer>
 </body>
 </html>
