@@ -1,7 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5 RPG Game</title>
+  <style>
+    :root {
+      --primary-color: #a70000;
+      --secondary-color: #0f0f0f;
+      --accent-color: #a39453;
+      --background-color: #1e1e1e;
+      --text-color: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    #gameCanvas {
+      display: block;
+      margin: 0 auto;
+      background: var(--secondary-color);
+      border: 4px solid var(--accent-color);
+    }
+
+    .hud {
+      text-align: center;
+      padding: 1rem;
+      background: var(--secondary-color);
+      color: var(--text-color);
+      border-top: 4px solid var(--accent-color);
+    }
+
+    .hud .btn {
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .hud .btn:hover {
+      background-color: #800000;
+    }
+  </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <div class="hud">
+    <button class="btn" onclick="attackEnemy()">Attack</button>
+    <button class="btn" onclick="healPlayer()">Heal</button>
+    <p id="gameInfo"></p>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let player = {
+      x: 50,
+      y: 300,
+      width: 40,
+      height: 40,
+      color: '#a70000',
+      health: 100,
+    };
+
+    let enemy = {
+      x: 700,
+      y: 300,
+      width: 40,
+      height: 40,
+      color: '#ffffff',
+      health: 100,
+    };
+
+    function drawRect(obj) {
+      ctx.fillStyle = obj.color;
+      ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+    }
+
+    function drawGame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawRect(player);
+      drawRect(enemy);
+      drawHUD();
+    }
+
+    function drawHUD() {
+      const gameInfo = document.getElementById('gameInfo');
+      gameInfo.innerHTML = `Player Health: ${player.health} | Enemy Health: ${enemy.health}`;
+    }
+
+    function attackEnemy() {
+      const damage = Math.floor(Math.random() * 20) + 1;
+      enemy.health -= damage;
+      if (enemy.health <= 0) {
+        alert('You defeated the enemy!');
+        resetGame();
+      }
+      drawGame();
+    }
+
+    function healPlayer() {
+      const heal = Math.floor(Math.random() * 15) + 1;
+      player.health += heal;
+      if (player.health > 100) player.health = 100;
+      drawGame();
+    }
+
+    function resetGame() {
+      player.health = 100;
+      enemy.health = 100;
+      drawGame();
+    }
+
+    drawGame();
+  </script>
 </body>
 </html>
