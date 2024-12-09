@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Interactive Lorebook for TTRPG">
-    <title>Interactive Lorebook</title>
+    <title>The Black Book</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,36 +75,44 @@
         const searchInput = document.getElementById('searchInput');
         const loreContainer = document.getElementById('loreEntries');
 
-        // Function to load data from Notion public page
+        // ==========================
+        // 1. ENTER YOUR NOTION API KEY
+        // ==========================
+        const apiKey = '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'; // Replace this with your Notion API key
+
+        // ==========================
+        // 2. ENTER YOUR DATABASE ID
+        // ==========================
+        const databaseId = '727a3636538a4584808b9e5632a8d3e2'; // Replace this with your database ID
+
+        // Function to load data from Notion API
         async function fetchLoreFromNotion() {
             try {
-                const response = await fetch('https://ohrgames.notion.site/727a3636538a4584808b9e5632a8d3e2?v=8e3f8d259f1742a0b43ad4cdaf3294c3&pvs=4');
+                const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Notion-Version': '2022-06-28',
+                        'Content-Type': 'application/json',
+                    },
+                });
+
                 if (!response.ok) throw new Error('Failed to fetch Notion data');
-                
-                // This example assumes a static structure; refine based on actual Notion data format.
-                // Parse Notion data and populate entries dynamically.
 
-                const mockEntries = [
-                    {
-                        title: "The Fall of Elarion",
-                        content: "Elarion, once the shining jewel of the eastern kingdoms, fell to ruin during the Age of Dread. Its ruins now lie haunted by the ghosts of its people, whispering their lament to those who dare enter."
-                    },
-                    {
-                        title: "The Red Blade",
-                        content: "An infamous weapon said to have been forged in the blood of a dying star. It grants immense power to its wielder but slowly consumes their soul."
-                    },
-                    {
-                        title: "The Council of Seven",
-                        content: "A shadowy group of powerful mages who once ruled from behind the thrones of kings. Their whereabouts are now unknown, but their influence lingers in every corner of the realm."
-                    }
-                ];
+                const data = await response.json();
 
-                mockEntries.forEach(entry => {
+                // ==========================
+                // 3. PARSE AND DISPLAY DATA
+                // ==========================
+                data.results.forEach(result => {
+                    const title = result.properties.Name.title[0]?.plain_text || 'Untitled';
+                    const content = result.properties.Description.rich_text[0]?.plain_text || 'No description provided.';
+
                     const entryDiv = document.createElement('div');
                     entryDiv.classList.add('entry');
                     entryDiv.innerHTML = `
-                        <div class="entry-title">${entry.title}</div>
-                        <div class="entry-content">${entry.content}</div>
+                        <div class="entry-title">${title}</div>
+                        <div class="entry-content">${content}</div>
                     `;
                     loreContainer.appendChild(entryDiv);
                 });
@@ -113,6 +121,7 @@
             }
         }
 
+        // Search functionality
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.toLowerCase();
             const entries = document.querySelectorAll('.entry');
@@ -129,6 +138,7 @@
             });
         });
 
+        // Call the function to fetch data
         fetchLoreFromNotion();
     </script>
 </body>
