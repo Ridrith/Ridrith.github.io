@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallowshall: A Dark Fantasy E-Zine</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Merriweather", serif;
+            background-color: #121212;
+            color: #b3a78e;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: relative;
+            height: 50vh;
+            color: #f4f4f4;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, #2e2e2e, #121212, #2e2e2e);
+            animation: gradientShift 10s infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.9);
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        nav a {
+            color: #b3a78e;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin: 0 1.5rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e0c38a;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .content-box {
+            background: #1e1e1e;
+            color: #b3a78e;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            flex: 1 1 calc(33% - 2rem);
+            min-width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9);
+        }
+
+        .content-box h2 {
+            font-size: 1.8rem;
+            color: #e0c38a;
+            margin-bottom: 1rem;
+        }
+
+        .content-box p {
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background: #111;
+            color: #b3a78e;
+        }
+
+        footer a {
+            color: #e0c38a;
+            text-decoration: underline;
+        }
+
+        .dark-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #e0c38a;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .dark-button:hover {
+            background: #b3a78e;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gallowshall</h1>
+        <p>The Dark Fantasy E-Zine of Ohr Games</p>
+    </header>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#ttrpg">Torches in the Dark</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container">
+        <div class="content-box" id="about">
+            <h2>About Gallowshall</h2>
+            <p>Gallowshall is your gateway to the shadowed corridors of dark fantasy, crafted by the minds at Ohr Games. Featuring exclusive insights, lore, and supplements for "Torches in the Dark" 3rd Edition, this e-zine delves into the depths of imagination and grim adventure.</p>
+        </div>
+
+        <div class="content-box" id="features">
+            <h2>Features</h2>
+            <p>From grim relics and harrowing campaign ideas to in-depth articles on roleplaying mechanics, Gallowshall delivers content that enriches your tabletop adventures. With a focus on community-driven development, every issue is a testament to collaboration and creativity.</p>
+        </div>
+
+        <div class="content-box" id="ttrpg">
+            <h2>Torches in the Dark 3rd Edition</h2>
+            <p>Enter the world of "Torches in the Dark"—a survival-focused TTRPG where heroes must overcome perilous odds. With enhanced mechanics, Grim Sorts for unique characters, and a dynamic dread system, this edition promises unforgettable tales in a world that thrives on danger and despair.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Ohr Games. All rights reserved. | <a href="#contact">Contact Us</a></p>
+    </footer>
+</body>
+</html>
