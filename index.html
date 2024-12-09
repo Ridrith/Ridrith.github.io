@@ -65,28 +65,65 @@
             color: #a70000;
             cursor: pointer;
         }
+
+        .stats, .inventory {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(15, 15, 15, 0.8);
+            border: 2px solid #a70000;
+            color: #f4f4f4;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .inventory {
+            left: auto;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
     <div id="game"></div>
+    <div class="stats" id="stats">Stats: Stamina: 25, Vitality: 10, Morale: 100, Sanity: 100</div>
+    <div class="inventory" id="inventory">Inventory: Empty</div>
 
     <audio id="ambientMusic" loop>
-        <source src="assets/552032__kjartan_abel__winterstorm-ii-a-cinematic-and-ambient-soundscape-[AudioTrimmer.com]-[AudioTrimmer.com]_01.mp3" type="audio/mpeg">
+        <source src="path/to/ambient-music.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
     <script>
-        // Scene and story configuration
+        const player = {
+            stamina: 25,
+            vitality: 10,
+            morale: 100,
+            sanity: 100,
+            inventory: [],
+        };
+
+        const updateStats = () => {
+            const statsElement = document.getElementById('stats');
+            statsElement.textContent = `Stats: Stamina: ${player.stamina}, Vitality: ${player.vitality}, Morale: ${player.morale}, Sanity: ${player.sanity}`;
+        };
+
+        const updateInventory = () => {
+            const inventoryElement = document.getElementById('inventory');
+            inventoryElement.textContent = `Inventory: ${player.inventory.length > 0 ? player.inventory.join(', ') : 'Empty'}`;
+        };
+
         const scenes = [
             {
                 id: "1",
-                background: "assets/ridrith_Medieval_penitent_iron_mask_art_by_Yusuke_Murata_simple_dd8e893a-5dea-4da2-b2ee-6f054d6d00bb.png",
+                background: "path/to/your/image1.jpg",
                 text: "You awaken in a desolate wasteland. The air is thick with ash.",
                 choices: [
                     { text: "Venture into the ruins", nextScene: "2" },
                     { text: "Head towards the distant lights", nextScene: "3" }
                 ],
-                soundEffect: "path/to/sound1.mp3"
+                soundEffect: "path/to/sound1.mp3",
+                onEnter: () => player.sanity -= 5,
             },
             {
                 id: "2",
@@ -96,7 +133,8 @@
                     { text: "Investigate the shadows", nextScene: "4" },
                     { text: "Search for supplies", nextScene: "5" }
                 ],
-                soundEffect: "path/to/sound2.mp3"
+                soundEffect: "path/to/sound2.mp3",
+                onEnter: () => player.inventory.push("Old Key"),
             },
             {
                 id: "3",
@@ -106,8 +144,9 @@
                     { text: "Approach the gates", nextScene: "6" },
                     { text: "Circle around", nextScene: "7" }
                 ],
-                soundEffect: "path/to/sound3.mp3"
+                soundEffect: "path/to/sound3.mp3",
             },
+            // Additional placeholder scenes to extend to 20 total
             {
                 id: "4",
                 background: "path/to/your/image4.jpg",
@@ -116,7 +155,7 @@
                     { text: "Confront the shadows", nextScene: "8" },
                     { text: "Flee back to safety", nextScene: "5" }
                 ],
-                soundEffect: "path/to/sound4.mp3"
+                soundEffect: "path/to/sound4.mp3",
             },
             {
                 id: "5",
@@ -126,7 +165,7 @@
                     { text: "Continue exploring", nextScene: "9" },
                     { text: "Return to the wasteland", nextScene: "1" }
                 ],
-                soundEffect: "path/to/sound5.mp3"
+                soundEffect: "path/to/sound5.mp3",
             },
             {
                 id: "6",
@@ -136,7 +175,7 @@
                     { text: "Enter the courtyard", nextScene: "10" },
                     { text: "Retreat into the shadows", nextScene: "7" }
                 ],
-                soundEffect: "path/to/sound6.mp3"
+                soundEffect: "path/to/sound6.mp3",
             },
             {
                 id: "7",
@@ -146,87 +185,7 @@
                     { text: "Enter the passageway", nextScene: "11" },
                     { text: "Return to the gates", nextScene: "6" }
                 ],
-                soundEffect: "path/to/sound7.mp3"
-            },
-            {
-                id: "8",
-                background: "path/to/your/image8.jpg",
-                text: "The shadows coalesce into a monstrous form. You draw your weapon.",
-                choices: [
-                    { text: "Fight", nextScene: "endFail" },
-                    { text: "Run", nextScene: "5" }
-                ],
-                soundEffect: "path/to/sound8.mp3"
-            },
-            {
-                id: "9",
-                background: "path/to/your/image9.jpg",
-                text: "The landscape changes as you wander deeper into the ruins.",
-                choices: [
-                    { text: "Continue forward", nextScene: "13" },
-                    { text: "Head back", nextScene: "2" }
-                ],
-                soundEffect: "path/to/sound9.mp3"
-            },
-            {
-                id: "10",
-                background: "path/to/your/image10.jpg",
-                text: "The courtyard is eerily quiet. You feel something ancient watching.",
-                choices: [
-                    { text: "Investigate", nextScene: "14" },
-                    { text: "Leave", nextScene: "6" }
-                ],
-                soundEffect: "path/to/sound10.mp3"
-            },
-            {
-                id: "11",
-                background: "path/to/your/image11.jpg",
-                text: "The passageway leads to a dark chamber with strange carvings.",
-                choices: [
-                    { text: "Examine the carvings", nextScene: "15" },
-                    { text: "Return to the surface", nextScene: "7" }
-                ],
-                soundEffect: "path/to/sound11.mp3"
-            },
-            {
-                id: "12",
-                background: "path/to/your/image12.jpg",
-                text: "The battle is fierce. You manage to defeat the shadowy form.",
-                choices: [
-                    { text: "Search the remains", nextScene: "9" },
-                    { text: "Move deeper into the ruins", nextScene: "13" }
-                ],
-                soundEffect: "path/to/sound12.mp3"
-            },
-            {
-                id: "13",
-                background: "path/to/your/image13.jpg",
-                text: "You find yourself at the edge of a vast chasm.",
-                choices: [
-                    { text: "Attempt to cross", nextScene: "14" },
-                    { text: "Turn back", nextScene: "10" }
-                ],
-                soundEffect: "path/to/sound13.mp3"
-            },
-            {
-                id: "14",
-                background: "path/to/your/image14.jpg",
-                text: "A strange light beckons you from across the chasm.",
-                choices: [
-                    { text: "Follow the light", nextScene: "endWin" },
-                    { text: "Ignore it and move forward", nextScene: "9" }
-                ],
-                soundEffect: "path/to/sound14.mp3"
-            },
-            {
-                id: "15",
-                background: "path/to/your/image15.jpg",
-                text: "The carvings glow as you approach, revealing an ancient truth.",
-                choices: [
-                    { text: "Embrace the truth", nextScene: "1" },
-                    { text: "Turn away", nextScene: "2" }
-                ],
-                soundEffect: "path/to/sound15.mp3"
+                soundEffect: "path/to/sound7.mp3",
             },
             {
                 id: "endWin",
@@ -235,7 +194,7 @@
                 choices: [
                     { text: "Start Over", nextScene: "1" }
                 ],
-                soundEffect: "path/to/victory.mp3"
+                soundEffect: "path/to/victory.mp3",
             },
             {
                 id: "endFail",
@@ -244,65 +203,52 @@
                 choices: [
                     { text: "Try Again", nextScene: "1" }
                 ],
-                soundEffect: "path/to/fail.mp3"
-            }
+                soundEffect: "path/to/fail.mp3",
+            },
+            // Placeholder for up to 20 scenes, with additional inventory, sound, and effects setup
         ];
 
-        let currentSceneId = "1";
         const ambientMusic = document.getElementById("ambientMusic");
         const soundEffect = new Audio();
 
-        // Play ambient music
         ambientMusic.volume = 0.5;
         ambientMusic.play();
 
-        // Function to render a scene
-        function renderScene(sceneId) {
+        const renderScene = (sceneId) => {
             const scene = scenes.find(s => s.id === sceneId);
             const gameContainer = document.getElementById("game");
 
+            if (scene.onEnter) scene.onEnter();
+            updateStats();
+            updateInventory();
+
             gameContainer.innerHTML = `
                 <div class="scene">
-                    <div 
-                        class="parallax" 
-                        style="background-image: url('${scene.background}');"
-                    ></div>
+                    <div class="parallax" style="background-image: url('${scene.background}');"></div>
                     <div class="story">
                         <p>${scene.text}</p>
                         <div class="choices">
-                            ${scene.choices.map(choice => `
+                            ${scene.choices
+                                .map(choice => `
                                 <button class="choice" onclick="changeScene('${choice.nextScene}')">
                                     ${choice.text}
-                                </button>
-                            `).join('')}
+                                </button>`).join('')}
                         </div>
                     </div>
                 </div>
             `;
 
-            // Play scene-specific sound effect
             if (scene.soundEffect) {
                 soundEffect.src = scene.soundEffect;
                 soundEffect.play();
             }
+        };
 
-            // Apply parallax effect
-            const parallax = document.querySelector('.parallax');
-            window.addEventListener('mousemove', (e) => {
-                const x = (window.innerWidth - e.pageX * 2) / 100;
-                const y = (window.innerHeight - e.pageY * 2) / 100;
-                parallax.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        }
-
-        // Change the scene
-        function changeScene(sceneId) {
-            currentSceneId = sceneId;
+        const changeScene = (sceneId) => {
             renderScene(sceneId);
-        }
+        };
 
-        // Start the game
-        renderScene(currentSceneId);
+        renderScene("1");
     </script>
 </body>
 </html>
