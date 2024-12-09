@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torches in the Dark | Gravehold</title>
+    <title>Torches in the Dark | Character Builder</title>
     <style>
         body {
             font-family: 'Times New Roman', serif;
@@ -21,158 +21,154 @@
             font-size: 24px;
             font-weight: bold;
         }
-        nav {
-            display: flex;
-            justify-content: center;
-            background: #333;
-        }
-        nav a {
-            color: #fff;
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        nav a:hover {
-            background: #a39453;
-            color: #0f0f0f;
-        }
         main {
             padding: 20px;
         }
         .section {
             margin-bottom: 20px;
         }
-        .accordion {
-            background: #333;
-            color: #fff;
-            cursor: pointer;
-            padding: 10px;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 18px;
-            transition: 0.4s;
+        label {
+            display: block;
+            margin: 10px 0 5px;
         }
-        .accordion:hover {
-            background: #a39453;
+        select, input {
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 100%;
         }
-        .panel {
-            padding: 10px;
-            display: none;
-            background-color: #444;
-            overflow: hidden;
-        }
-        .dice {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .dice button {
+        button {
             padding: 10px 20px;
-            font-size: 18px;
             background: #a70000;
             color: #fff;
             border: none;
             cursor: pointer;
         }
-        .dice button:hover {
+        button:hover {
             background: #a39453;
         }
-        footer {
-            text-align: center;
+        .output {
+            margin-top: 20px;
             padding: 10px;
             background: #333;
             color: #fff;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <header>Torches in the Dark: Gravehold</header>
-    <nav>
-        <a href="#rules">Rules</a>
-        <a href="#builder">Character Builder</a>
-        <a href="#dice">Dice Roller</a>
-        <a href="#lore">Lore</a>
-    </nav>
+    <header>Torches in the Dark: Character Builder</header>
     <main>
-        <section id="rules" class="section">
-            <h2>Rules</h2>
-            <button class="accordion">Combat Rules</button>
-            <div class="panel">
-                <p>Combat is resolved using action points and the Omen Die. Each player has three action points per turn...</p>
-            </div>
-            <button class="accordion">Exploration</button>
-            <div class="panel">
-                <p>Exploration in dungeons uses a dread mechanic. Every turn, light sources diminish...</p>
-            </div>
-        </section>
-        <section id="builder" class="section">
-            <h2>Character Builder</h2>
-            <form>
+        <section class="section">
+            <h2>Create Your Character</h2>
+            <form id="character-form">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name"><br><br>
+                <input type="text" id="name" name="name" required>
 
                 <label for="race">Race:</label>
                 <select id="race" name="race">
                     <option value="human">Human</option>
-                    <option value="elf">Elf</option>
                     <option value="dwarf">Dwarf</option>
-                </select><br><br>
+                    <option value="elf">Elf</option>
+                </select>
 
-                <label for="class">Class:</label>
-                <select id="class" name="class">
-                    <option value="fighter">Fighter</option>
-                    <option value="mage">Mage</option>
-                    <option value="rogue">Rogue</option>
-                </select><br><br>
+                <label for="background">Background:</label>
+                <select id="background" name="background">
+                    <option value="alchemist">Alchemist</option>
+                    <option value="bandit">Bandit</option>
+                    <option value="duelist">Duelist</option>
+                </select>
+
+                <label>Attribute Points (Distribute 10):</label>
+                <div>
+                    <label for="might">Might:</label>
+                    <input type="number" id="might" name="might" min="0" max="6" value="0">
+
+                    <label for="finesse">Finesse:</label>
+                    <input type="number" id="finesse" name="finesse" min="0" max="6" value="0">
+
+                    <label for="endurance">Endurance:</label>
+                    <input type="number" id="endurance" name="endurance" min="0" max="6" value="0">
+
+                    <label for="insight">Insight:</label>
+                    <input type="number" id="insight" name="insight" min="0" max="6" value="0">
+
+                    <label for="resolve">Resolve:</label>
+                    <input type="number" id="resolve" name="resolve" min="0" max="6" value="0">
+
+                    <label for="faith">Faith:</label>
+                    <input type="number" id="faith" name="faith" min="0" max="6" value="0">
+                </div>
 
                 <button type="button" onclick="generateCharacter()">Generate Character</button>
             </form>
-            <div id="character-output"></div>
+
+            <div id="character-output" class="output"></div>
         </section>
-        <section id="dice" class="section">
-            <h2>Dice Roller</h2>
-            <div class="dice">
-                <button onclick="rollDice(4)">Roll D4</button>
-                <button onclick="rollDice(6)">Roll D6</button>
-                <button onclick="rollDice(8)">Roll D8</button>
-                <button onclick="rollDice(10)">Roll D10</button>
-                <button onclick="rollDice(12)">Roll D12</button>
-                <button onclick="rollDice(20)">Roll D20</button>
-            </div>
-            <p id="dice-result"></p>
-        </section>
-        <section id="lore" class="section">
-            <h2>Lore</h2>
-            <p>Discover the grim world of Gravehold, where shadows twist and light is a fleeting beacon in the dark...</p>
+        <section class="section">
+            <h2>Printable Character Sheet</h2>
+            <button onclick="printCharacterSheet()">Download Character Sheet</button>
         </section>
     </main>
-    <footer>
-        &copy; 2024 Torches in the Dark: Gravehold. All rights reserved.
-    </footer>
     <script>
-        const accordions = document.querySelectorAll('.accordion');
-        accordions.forEach(acc => {
-            acc.addEventListener('click', () => {
-                acc.classList.toggle('active');
-                const panel = acc.nextElementSibling;
-                panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-            });
-        });
-
-        function rollDice(sides) {
-            const result = Math.floor(Math.random() * sides) + 1;
-            document.getElementById('dice-result').textContent = `You rolled a D${sides}: ${result}`;
-        }
-
         function generateCharacter() {
             const name = document.getElementById('name').value;
             const race = document.getElementById('race').value;
-            const charClass = document.getElementById('class').value;
-            const output = `Name: ${name} | Race: ${race} | Class: ${charClass}`;
-            document.getElementById('character-output').textContent = output;
+            const background = document.getElementById('background').value;
+            const might = document.getElementById('might').value;
+            const finesse = document.getElementById('finesse').value;
+            const endurance = document.getElementById('endurance').value;
+            const insight = document.getElementById('insight').value;
+            const resolve = document.getElementById('resolve').value;
+            const faith = document.getElementById('faith').value;
+
+            const output = `
+                <h3>Character Summary</h3>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Race:</strong> ${race}</p>
+                <p><strong>Background:</strong> ${background}</p>
+                <p><strong>Attributes:</strong></p>
+                <ul>
+                    <li>Might: ${might}</li>
+                    <li>Finesse: ${finesse}</li>
+                    <li>Endurance: ${endurance}</li>
+                    <li>Insight: ${insight}</li>
+                    <li>Resolve: ${resolve}</li>
+                    <li>Faith: ${faith}</li>
+                </ul>
+            `;
+
+            document.getElementById('character-output').innerHTML = output;
+        }
+
+        function printCharacterSheet() {
+            const name = document.getElementById('name').value;
+            const race = document.getElementById('race').value;
+            const background = document.getElementById('background').value;
+            const might = document.getElementById('might').value;
+            const finesse = document.getElementById('finesse').value;
+            const endurance = document.getElementById('endurance').value;
+            const insight = document.getElementById('insight').value;
+            const resolve = document.getElementById('resolve').value;
+            const faith = document.getElementById('faith').value;
+
+            const characterSheet = `
+                Name: ${name}\n
+                Race: ${race}\n
+                Background: ${background}\n
+                Attributes:\n
+                - Might: ${might}\n
+                - Finesse: ${finesse}\n
+                - Endurance: ${endurance}\n
+                - Insight: ${insight}\n
+                - Resolve: ${resolve}\n
+                - Faith: ${faith}\n
+            `;
+
+            const blob = new Blob([characterSheet], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${name}_Character_Sheet.txt`;
+            link.click();
         }
     </script>
 </body>
