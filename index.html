@@ -8,15 +8,16 @@
         body {
             margin: 0;
             font-family: "Merriweather", serif;
-            background-color: #0e0e0e;
+            background-color: #121212;
             color: #b3a78e;
             line-height: 1.6;
             overflow-x: hidden;
+            text-align: center;
         }
 
         header {
             position: relative;
-            height: 100vh;
+            height: 60vh;
             color: #f4f4f4;
             text-align: center;
             overflow: hidden;
@@ -28,26 +29,26 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://via.placeholder.com/1920x1080') center/cover no-repeat;
-            animation: slideBg 20s linear infinite;
+            background: linear-gradient(120deg, #2e2e2e, #121212, #2e2e2e);
+            animation: gradientShift 10s infinite alternate;
             z-index: -1;
         }
 
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
         header h1 {
-            font-size: 4rem;
+            font-size: 3rem;
             margin: 0;
-            padding-top: 20vh;
+            padding-top: 15vh;
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
         }
 
         header p {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             margin-top: 1rem;
-        }
-
-        @keyframes slideBg {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
         }
 
         nav {
@@ -55,9 +56,8 @@
             top: 0;
             background: rgba(10, 10, 10, 0.9);
             display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 1rem 2rem;
+            justify-content: center;
+            padding: 1rem;
             z-index: 10;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
         }
@@ -65,8 +65,8 @@
         nav a {
             color: #b3a78e;
             text-decoration: none;
-            font-size: 1.2rem;
-            position: relative;
+            font-size: 1.1rem;
+            margin: 0 1.5rem;
             transition: color 0.3s;
         }
 
@@ -74,35 +74,22 @@
             color: #e0c38a;
         }
 
-        nav a::after {
-            content: "";
-            display: block;
-            height: 2px;
-            background: #e0c38a;
-            width: 0;
-            transition: width 0.3s;
-            margin-top: 5px;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
         .parallax {
-            height: 500px;
+            height: 300px;
             background: url('https://via.placeholder.com/1920x800') center/cover no-repeat fixed;
         }
 
         .content-section {
             width: 100%;
-            padding: 4rem 10%;
+            padding: 3rem 5%;
             background: #1e1e1e;
             text-align: center;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
+            margin-bottom: 2rem;
         }
 
         .content-section h2 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
             color: #e0c38a;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
@@ -111,7 +98,7 @@
         .content-section p {
             font-size: 1.2rem;
             color: #b3a78e;
-            margin: 1rem 0;
+            margin: 1rem auto;
         }
 
         footer {
